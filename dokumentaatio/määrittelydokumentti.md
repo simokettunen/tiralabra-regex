@@ -49,7 +49,7 @@ Rabin-Scottin konstruktio tuottaa pahimmassa mahdollisessa tapauksessa determini
 
 Projektissa luonnollisen kielen kielivalinnat ovat seuraavat:
 * Ohjelman vaadittavat dokumentaatiot tehdään suomen kielellä.
-* Ohjelman kommentointi tehdään suomen kielellä.
+* Ohjelman kommentointi tehdään englannin kielellä.
 * Projektin koodissa (muuttujien nimet, luokkien nimet yms.) käytetään englannin kieltä.
 
 Vertaisarvioinnin pystyn tekemään Pythonin lisäksi Matlabilla, JavaScriptillä sekä Haskelilla tehtyihin projekteihin. Opinto-ohjelmani on matemaattisten tieteiden kandiohjelma, jossa opintosuuntanani on tietojenkäsittelyteoria.
