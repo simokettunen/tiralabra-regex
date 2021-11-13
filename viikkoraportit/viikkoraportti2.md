@@ -10,12 +10,12 @@ Aikaa viikolla 2 käytin noin 15 tuntia.
 
 Ohessa tämänhetkinen testauskattavuus:
 
-$ coverage report -m
-Name              Stmts   Miss Branch BrPart  Cover   Missing
--------------------------------------------------------------
-src/main.py          34     34      2      0     0%   1-48
-src/nfa.py           85      1      8      2    97%   94, 116->119, 119->122
-src/parser.py        12      5      4      0    44%   9-15
-src/thompson.py      17      0     10      1    96%   21->exit
--------------------------------------------------------------
-TOTAL               148     40     24      3    72%
+    $ coverage report -m
+    Name              Stmts   Miss Branch BrPart  Cover   Missing
+    -------------------------------------------------------------
+    src/main.py          34     34      2      0     0%   1-48
+    src/nfa.py           85      1      8      2    97%   94, 116->119, 119->122
+    src/parser.py        12      5      4      0    44%   9-15
+    src/thompson.py      17      0     10      1    96%   21->exit
+    -------------------------------------------------------------
+    TOTAL               148     40     24      3    72%
