@@ -5,4 +5,4 @@
 
 ## Viikkoraportit
 * [Viikkoraportti 1](viikkoraportit/viikkoraportti1.md)
-* [Viikkoraportti 1](viikkoraportit/viikkoraportti2.md)
+* [Viikkoraportti 2](viikkoraportit/viikkoraportti2.md)
