@@ -1,39 +1,48 @@
 from nfa import *
+from parser import Node
+from thompson import thompson
 
 def main():
+    
     # regular expression ""
-    nfa = empty()
+    t = Node('s', '.')
+    nfa = thompson(t)
     print(nfa)
     
     # regular expression a
-    nfa = single('a')
+    t = Node('s', 'a')
+    nfa = thompson(t)
     print(nfa)
-    
+
     # regular expression a|b
-    nfa1 = single('a')
-    nfa2 = single('b')
-    nfa = union(nfa1, nfa2)
+    t = Node('u')
+    t.left = Node('s', 'a')
+    t.right = Node('s', 'b')
+    nfa = thompson(t)
     print(nfa)
     
     # regular expression a*
-    nfa1 = single('a')
-    nfa = kleene_star(nfa1)
+    t = Node('k')
+    t.left = Node('s', 'a')
+    nfa = thompson(t)
     print(nfa)
     
-    # regular expression ab
-    nfa1 = single('a')
-    nfa2 = single('b')
-    nfa = concatenation(nfa1, nfa2)
+    # regular expresion ab
+    t = Node('c')
+    t.left = Node('s', 'a')
+    t.right = Node('s', 'b')
+    nfa = thompson(t)
     print(nfa)
-
+    
     # regular expression a*b|c
-    nfa_a = single('a')
-    nfa_b = single('b')
-    nfa_c = single('c')
-    nfa_aO = kleene_star(nfa_a)
-    nfa_aOb = concatenation(nfa_aO, nfa_b)
-    nfa_aOb_c = union(nfa_aOb, nfa_c)
-    print(nfa_aOb_c)
-    
+    t = Node('u')
+    t.left = Node('c')
+    t.right = Node('s', 'c')
+    t.left.left = Node('k')
+    t.left.right = Node('s', 'b')
+    t.left.left.left = Node('s', 'a')
+    nfa = thompson(t)
+    print(nfa)
+  
 if __name__ == '__main__':
     main()
