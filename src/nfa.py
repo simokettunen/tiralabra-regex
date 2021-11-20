@@ -120,3 +120,26 @@ class NFA:
             self.accept_state += i
         
         self.i += i
+        
+    def eps_closure(self, s):
+        stack = s
+        closure = set(s)
+        
+        while stack:
+            t = stack.pop()
+            
+            for transition in self.transitions:
+                if transition[0] == t and transition[2] == '.' and not transition[1] in closure:
+                    closure.add(transition[1])
+                    stack.append(transition[1])
+                    
+        return closure
+        
+    def move(self, s, x):
+        states = set()
+        
+        for transition in self.transitions:
+            if transition[0] in s and transition[2] == x:
+                states.add(transition[1])
+                
+        return states

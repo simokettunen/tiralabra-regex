@@ -46,3 +46,88 @@ class TestNFA(unittest.TestCase):
         self.assertListEqual(nfa.transitions, [[1, 2, 'a'], [3, 4, 'b'], [2, 3, '.']])
         self.assertEqual(nfa.start_state, 1)
         self.assertEqual(nfa.accept_state, 4)
+        
+    def test_eps_closure_accepts_eps_transition(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, '.')
+        
+        self.assertSetEqual(nfa.eps_closure([1]), {1, 2})
+        
+    def test_eps_closure_rejects_non_eps_transition(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, 'a')
+        
+        self.assertSetEqual(nfa.eps_closure([1]), {1})
+        
+    def test_eps_closure_handles_eps_and_non_eps_transition_from_same_node_correctly(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, '.')
+        nfa.add_transition(1, 3, 'a')
+        
+        self.assertSetEqual(nfa.eps_closure([1]), {1, 2})
+        
+    def test_eps_closure_accepts_two_sequential_eps_transitions(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, '.')
+        nfa.add_transition(2, 3, '.')
+        
+        self.assertSetEqual(nfa.eps_closure([1]), {1, 2, 3})
+        
+    def test_eps_closure_rejects_non_eps_transition_after_eps_transition(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, '.')
+        nfa.add_transition(2, 3, 'a')
+        
+        self.assertSetEqual(nfa.eps_closure([1]), {1, 2})
+        
+    def test_eps_clousure_rejects_eps_transition_after_non_eps_transition(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, 'a')
+        nfa.add_transition(2, 3, '.')
+        
+        self.assertSetEqual(nfa.eps_closure([1]), {1})
+        
+    def test_move_accepts_next_state_on_correct_symbol(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, 'a')
+        
+        self.assertSetEqual(nfa.move([1], 'a'), {2})
+        
+    def test_move_rejects_next_state_on_incorrect_symbol(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, 'b')
+        
+        self.assertSetEqual(nfa.move([1], 'a'), set())
+        
+    def test_move_handles_only_one_transition(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, 'a')
+        nfa.add_transition(2, 3, 'a')
+        
+        self.assertSetEqual(nfa.move([1], 'a'), {2})
