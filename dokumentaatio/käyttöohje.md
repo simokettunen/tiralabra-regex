@@ -30,3 +30,5 @@ Esimerkkejä:
 * `a|b`, merkkien a ja b yhdiste
 * `a*`, merkin a Kleenen tähti
 * `(ab)*`, merkkijonon ab Kleenen tähti
+
+Tyhjiin merkkijonoihin liittyviä ominaisuuksia ja toimintoja ei ole vielä implementoitu.
