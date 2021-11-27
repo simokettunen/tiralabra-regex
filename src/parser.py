@@ -16,12 +16,11 @@ class Parser:
         self._stack2 = None
         
         self.result = None
-        
+
     def __str__(self):
         return f'{self.result}'
-        
+
     def _reduce(self):
-    
         item1 = []
         item2 = ''
         
@@ -45,16 +44,16 @@ class Parser:
                 node = Node('c')
                 
                 # Check which one of the rule forms appears: XX, (X)X, X(X), (X)(X)
-                if type(item1[0]) is Node and type(item1[1]) is Node:
+                if isinstance(item1[0], Node) and isinstance(item1[1], Node):
                     node.left = item1[0]
                     node.right = item1[1]
-                elif type(item1[0]) is Node and type(item1[2]) is Node:
+                elif isinstance(item1[0], Node) and isinstance(item1[2], Node):
                     node.left = item1[0]
                     node.right = item1[2]
-                elif type(item1[1]) is Node and type(item1[3]) is Node:
+                elif isinstance(item1[1], Node) and isinstance(item1[3], Node):
                     node.left = item1[1]
                     node.right = item1[3]
-                elif type(item1[1]) is Node and type(item1[4]) is Node:
+                elif isinstance(item1[1], Node) and isinstance(item1[4], Node):
                     node.left = item1[1]
                     node.right = item1[4]
                 
@@ -68,9 +67,9 @@ class Parser:
                 node = Node('k')
                 
                 # Check which one of the rule forms appears: X*, (X)*
-                if type(item1[0]) is Node:
+                if isinstance(item1[0], Node):
                     node.left = item1[0]
-                elif type(item1[1]) is Node:
+                elif isinstance(item1[1], Node):
                     node.left = item1[1]
                 
                 self._stack1.append(node)
@@ -87,16 +86,16 @@ class Parser:
                     break
                 
                 # Check which one of the rule forms appears: X|X, X|(X), (X)|X, (X)|(X)
-                if type(item1[0]) is Node and type(item1[2]) is Node:
+                if isinstance(item1[0], Node) and isinstance(item1[2], Node):
                     node.left = item1[0]
                     node.right = item1[2]
-                elif type(item1[0]) is Node and type(item1[3]) is Node:
+                elif isinstance(item1[0], Node) and isinstance(item1[3], Node):
                     node.left = item1[0]
                     node.right = item1[3]
-                elif type(item1[1]) is Node and type(item1[4]) is Node:
+                elif isinstance(item1[1], Node) and isinstance(item1[4], Node):
                     node.left = item1[1]
                     node.right = item1[4]
-                elif type(item1[1]) is Node and type(item1[5]) is Node:
+                elif isinstance(item1[1], Node) and isinstance(item1[5], Node):
                     node.left = item1[1]
                     node.right = item1[5]
                     
@@ -154,7 +153,7 @@ class Node:
         self.type = type
         self.left = None
         self.right = None
-        
+  
     def __str__(self):
         if self.type in ['c', 'k', 'u']:
             return f'({self.type} {self.left.__str__()} {self.right.__str__()})'

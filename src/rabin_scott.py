@@ -9,7 +9,7 @@ def set_to_bit_string(s, i):
             x += '1'
         else:
             x += '0'
-            
+    
     return x
 
 def rabin_scott(nfa):

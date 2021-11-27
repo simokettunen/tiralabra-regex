@@ -7,7 +7,7 @@ def empty():
     nfa.accept_state = state2
     
     return nfa
-    
+
 def single(c):
     nfa = NFA()
     state1 = nfa.add_state()
@@ -17,7 +17,7 @@ def single(c):
     nfa.accept_state = state2
     
     return nfa
-                
+
 def union(nfa1, nfa2):
     nfa = NFA()
     nfa.i = nfa1.i + nfa2.i
@@ -41,7 +41,7 @@ def union(nfa1, nfa2):
     nfa.accept_state = state2
     
     return nfa
-    
+
 def kleene_star(nfa1):
     nfa = NFA()
     nfa.i = nfa1.i
@@ -61,7 +61,7 @@ def kleene_star(nfa1):
     nfa.accept_state = state2
     
     return nfa
-    
+
 def concatenation(nfa1, nfa2):
     nfa = NFA()
     nfa.i = nfa1.i + nfa2.i
@@ -79,6 +79,8 @@ def concatenation(nfa1, nfa2):
     nfa.accept_state = nfa2.accept_state
     
     return nfa
+
+# TODO: classess DFA and NFA could be inherited from the same super class FA (finite automaton)
 
 class NFA:
     def __init__(self):

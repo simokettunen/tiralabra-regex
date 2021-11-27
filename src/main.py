@@ -19,7 +19,6 @@ def main():
     print(dfa.match('aac'))      # True
     print(dfa.match('abaac'))    # True
     print(dfa.match('aacaac'))   # True
-    print(dfa.match('aacaac'))   # True
     print(dfa.match('a'))        # False
     print(dfa.match('acab'))     # False
     
