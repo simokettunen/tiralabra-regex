@@ -8,3 +8,4 @@
 * [Viikkoraportti 1](viikkoraportit/viikkoraportti1.md)
 * [Viikkoraportti 2](viikkoraportit/viikkoraportti2.md)
 * [Viikkoraportti 3](viikkoraportit/viikkoraportti3.md)
+* [Viikkoraportti 4](viikkoraportit/viikkoraportti4.md)
