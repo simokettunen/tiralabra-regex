@@ -12,11 +12,12 @@ class TestDFA(unittest.TestCase):
         dfa.start_state = 1
         dfa.accept_state = [2, 3]
         
-        self.assertTrue(dfa.check_string('a'))
-        self.assertTrue(dfa.check_string('b'))
+        self.assertTrue(dfa.match('a'))
+        self.assertTrue(dfa.match('b'))
         
     def test_dfa_recognizes_kleene_star_operator_correctly(self):
         dfa = DFA()
+        dfa.add_state()
         dfa.add_state()
         dfa.add_state()
         dfa.add_transition(1, 2, 'a')
@@ -24,8 +25,8 @@ class TestDFA(unittest.TestCase):
         dfa.start_state = 1
         dfa.accept_state = [1, 2]
         
-        self.assertTrue(dfa.check_string('a'))
-        self.assertTrue(dfa.check_string('aa'))
+        self.assertTrue(dfa.match('a'))
+        self.assertTrue(dfa.match('aa'))
         
     def test_dfa_recognizes_concatenation_operator_correctly(self):
         dfa = DFA()
@@ -37,5 +38,5 @@ class TestDFA(unittest.TestCase):
         dfa.start_state = 1
         dfa.accept_state = [3]
         
-        self.assertTrue(dfa.check_string('ab'))
-        self.assertFalse(dfa.check_string('a'))
+        self.assertTrue(dfa.match('ab'))
+        self.assertFalse(dfa.match('a'))

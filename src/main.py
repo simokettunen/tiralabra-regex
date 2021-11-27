@@ -15,13 +15,13 @@ def compile(regex):
 def main():
 
     dfa = compile('(ab|aac)*')
-    print(dfa.check_string('ab'))       # True
-    print(dfa.check_string('aac'))      # True
-    print(dfa.check_string('abaac'))    # True
-    print(dfa.check_string('aacaac'))   # True
-    print(dfa.check_string('aacaac'))   # True
-    print(dfa.check_string('a'))        # False
-    print(dfa.check_string('acab'))     # False
+    print(dfa.match('ab'))       # True
+    print(dfa.match('aac'))      # True
+    print(dfa.match('abaac'))    # True
+    print(dfa.match('aacaac'))   # True
+    print(dfa.match('aacaac'))   # True
+    print(dfa.match('a'))        # False
+    print(dfa.match('acab'))     # False
     
 if __name__ == '__main__':
     main()

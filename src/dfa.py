@@ -1,3 +1,5 @@
+# TODO: classes DFA and NFA could be inherited from the same super class FA (finite automaton)
+
 class DFA:
     def __init__(self):
         self.states = set()
@@ -19,7 +21,7 @@ class DFA:
     def add_transition(self, state1, state2, s):
         self.transitions.append([state1, state2, s])
         
-    def check_string(self, string):
+    def match(self, string):
         current_state = self.start_state
     
         for x in string:
