@@ -1,4 +1,5 @@
 def empty():
+    """Create a nondeterministic finite automaton that has only epsilon move."""
     nfa = NFA()
     state1 = nfa.add_state()
     state2 = nfa.add_state()
@@ -9,6 +10,7 @@ def empty():
     return nfa
 
 def single(c):
+    """Create a nondeterministic finite automatons from the given alphabet."""
     nfa = NFA()
     state1 = nfa.add_state()
     state2 = nfa.add_state()
@@ -19,6 +21,7 @@ def single(c):
     return nfa
 
 def union(nfa1, nfa2):
+    """Combine two given nondeterministic finite automaton with union operator."""
     nfa = NFA()
     nfa.i = nfa1.i + nfa2.i
     nfa2.increase_by_i(nfa1.i)
@@ -43,6 +46,7 @@ def union(nfa1, nfa2):
     return nfa
 
 def kleene_star(nfa1):
+    """Apply Kleene star operator on the given nondeterministic finite automaton."""
     nfa = NFA()
     nfa.i = nfa1.i
     
@@ -63,6 +67,7 @@ def kleene_star(nfa1):
     return nfa
 
 def concatenation(nfa1, nfa2):
+    """Combine two given nondeterministic finite automatons with concatenation operator."""
     nfa = NFA()
     nfa.i = nfa1.i + nfa2.i
     nfa2.increase_by_i(nfa1.i)
@@ -83,6 +88,8 @@ def concatenation(nfa1, nfa2):
 # TODO: classess DFA and NFA could be inherited from the same super class FA (finite automaton)
 
 class NFA:
+    """TODO"""
+    
     def __init__(self):
         self.states = set()
         self.transitions = []
@@ -96,14 +103,17 @@ class NFA:
         return f'\n{self.states}\n{self.transitions}\n{self.start_state}\n{self.accept_state}'
         
     def add_state(self):
+        """TODO"""
         self.i += 1
         self.states.add(self.i)
         return self.i
         
     def add_transition(self, state1, state2, s):
+        """TODO"""
         self.transitions.append([state1, state2, s])
         
     def increase_by_i(self, i):
+        """TODO"""
         # adds i for all state ids in the NFA
         
         self.states = {i+j for j in self.states}
@@ -124,6 +134,7 @@ class NFA:
         self.i += i
         
     def eps_closure(self, s):
+        """TODO"""
         stack = s
         closure = set(s)
         
@@ -138,6 +149,7 @@ class NFA:
         return closure
         
     def move(self, s, x):
+        """TODO"""
         states = set()
         
         for transition in self.transitions:

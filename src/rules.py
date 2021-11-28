@@ -1,3 +1,5 @@
+"""Collection of the production rules of context-free grammar of regular experssion string."""
+
 rules = {
     'T': [
         'E',

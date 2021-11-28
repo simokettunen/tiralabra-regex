@@ -1,6 +1,8 @@
 from rules import rules
     
 class Parser:
+    """TODO"""
+
     def __init__(self):
         self.rules = rules
         
@@ -21,6 +23,8 @@ class Parser:
         return f'{self.result}'
 
     def _reduce(self):
+        """TODO"""
+        
         item1 = []
         item2 = ''
         
@@ -113,6 +117,8 @@ class Parser:
             self._stack2.append(i)
 
     def parse(self, string):
+        """Create an abstract syntax tree from the given regular experssion."""
+        
         self._stack1 = []
         self._stack2 = []
 
@@ -148,6 +154,8 @@ class Parser:
         self.result = self._stack1[0]
 
 class Node:
+    """TODO"""
+
     def __init__(self, type, label=None):
         self.label = label
         self.type = type

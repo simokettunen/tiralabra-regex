@@ -1,6 +1,8 @@
 from nfa import *
 
 def thompson(t):
+    """Create a nondeterministic finite automaton from the given abstract syntax tree."""
+
     if t.type == 's':
         if t.label == '.':
             return empty()

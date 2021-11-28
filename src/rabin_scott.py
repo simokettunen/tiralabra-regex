@@ -2,6 +2,8 @@ from dfa import DFA
 from nfa import NFA
 
 def set_to_bit_string(s, i):
+    """TODO"""
+    
     x = ''
     
     for j in range(1,i+1):
@@ -13,6 +15,7 @@ def set_to_bit_string(s, i):
     return x
 
 def rabin_scott(nfa):
+    """Create a deterministic finite automaton from the given nondeterministic finite automaton."""
 
     states_handled = []
     states_unhandled = []
