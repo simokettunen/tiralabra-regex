@@ -20,22 +20,38 @@ class DFA:
         
         self.i += 1
         self.states.add(self.i)
+        
+        for terminal_list in self.transitions:
+            terminal_list.append(None)
+            
+        self.transitions.append([None]*self.i)
+        
         return self.i
         
     def add_transition(self, state1, state2, s):
         """TODO"""
-        self.transitions.append([state1, state2, s])
+        
+        if self.transitions[state1-1][state2-1] is None:
+            self.transitions[state1-1][state2-1] = s
+        else:
+            self.transitions[state1-1][state2-1] += s
         
     def match(self, string):
         """TODO"""
         current_state = self.start_state
     
-        for x in string:
-            for transition in self.transitions:
-                if transition[0] == current_state and transition[2] == x:
-                    current_state = transition[1]
-                    break
-        
+        for char in string:
+            new_state = 0
+            
+            for terminals in self.transitions[current_state-1]:
+                new_state += 1
+                
+                if terminals is None:
+                    continue
+                
+                if char in terminals:
+                    current_state = new_state
+                    
         if current_state in self.accept_state:
             return True
             
