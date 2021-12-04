@@ -1,4 +1,4 @@
-# Viikkoraportti 4
+# Viikkoraportti 5
 
 Viidennellä viikolla eniten aikaa kului vertaisarvioitavaan projektiin tutustumiseen ja sen katselmointiin. Omaan projektiini lisäsin puuttuvat testit Rabin–Scottin algoritmilta. Lisäksi toteutin yksinkertaisen tekstipohjaisen käyttöliittymän. Käyttäliittymässä on toiminnot säännöllisen lausekkeen kääntämiseksi DFA:ksi ja merkkijonon testaaminen säännöllistä lauseketta vasten.
 
