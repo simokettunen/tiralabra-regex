@@ -26,7 +26,7 @@ class Parser:
         """TODO"""
         
         item1 = []
-        item2 = ''
+        item2 = []
         
         # Loop at most seven items since longest rule is (U)|(U)
         for i in range(7):
@@ -34,17 +34,18 @@ class Parser:
                 break
         
             item1.insert(0, self._stack1.pop())
-            item2 = self._stack2.pop() + item2
+            item2.insert(0, self._stack2.pop())
+            #item2 = self._stack2.pop() + item2
             
-            if item2 in self.rules['S']:
+            if item2 in self.rules['single']:
                 node = Node('s', item1[0])
                 self._stack1.append(node)
-                self._stack2.append('S')
+                self._stack2.append('single')
                 
                 self._reduce()
                 return
             
-            elif item2 in self.rules['C']:
+            elif item2 in self.rules['concatenation']:
                 node = Node('c')
                 
                 # Check which one of the rule forms appears: XX, (X)X, X(X), (X)(X)
@@ -62,12 +63,12 @@ class Parser:
                     node.right = item1[4]
                 
                 self._stack1.append(node)
-                self._stack2.append('C')
+                self._stack2.append('concatenation')
                 
                 self._reduce()
                 return
                 
-            elif item2 in self.rules['K']:
+            elif item2 in self.rules['kleene']:
                 node = Node('k')
                 
                 # Check which one of the rule forms appears: X*, (X)*
@@ -77,16 +78,16 @@ class Parser:
                     node.left = item1[1]
                 
                 self._stack1.append(node)
-                self._stack2.append('K')
+                self._stack2.append('kleene')
                 
                 self._reduce()
                 return
                 
-            elif item2 in self.rules['U']:
+            elif item2 in self.rules['union']:
                 node = Node('u')
                 
                 # This is for handling rules of the form X|YZ correctly where YZ forms concatenation
-                if self._next in self.rules['S']:
+                if [self._next] in self.rules['single']:
                     break
                 
                 # Check which one of the rule forms appears: X|X, X|(X), (X)|X, (X)|(X)
@@ -104,7 +105,7 @@ class Parser:
                     node.right = item1[5]
                     
                 self._stack1.append(node)
-                self._stack2.append('U')
+                self._stack2.append('union')
                 
                 self._reduce()
                 return
@@ -135,16 +136,16 @@ class Parser:
             # TODO: this if statement needs refactoring
             if self._next == '*':
                 item1 = self._stack1.pop()
-                item2 = self._stack2.pop()
-                if item2 in self.rules['S']:
+                item2 = [self._stack2.pop()]
+                if item2 in self.rules['single']:
                     node = Node('s', item1[0])
                     self._stack1.append(node)
-                    self._stack2.append('S')
+                    self._stack2.append('single')
                 elif string[i] == '*':
                     self._reduce()
                 else:
                     self._stack1.append(item1)
-                    self._stack2.append(item2)
+                    self._stack2.append(item2[0])
                     self._reduce()
                     
                 continue
