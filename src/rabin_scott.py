@@ -34,8 +34,7 @@ def rabin_scott(nfa):
         state = states_handled.pop()
         states_unhandled.append(state)
         
-        
-        for x in ['a', 'b', 'c', 'd']:
+        for x in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789':
             eps_closure = nfa.eps_closure(list(nfa.move(list(state), x)))
             
             if not (eps_closure in states_unhandled or eps_closure in states_handled):
