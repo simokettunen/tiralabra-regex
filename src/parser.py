@@ -37,7 +37,15 @@ class Parser:
             item2.insert(0, self._stack2.pop())
             #item2 = self._stack2.pop() + item2
             
-            if item2 in self.rules['single']:
+            if item2 in self.rules['empty']:
+                node = Node('e')
+                self._stack1.append(node)
+                self._stack2.append('empty')
+                
+                self._reduce()
+                return
+                
+            elif item2 in self.rules['single']:
                 node = Node('s', item1[0])
                 self._stack1.append(node)
                 self._stack2.append('single')
@@ -87,7 +95,7 @@ class Parser:
                 node = Node('u')
                 
                 # This is for handling rules of the form X|YZ correctly where YZ forms concatenation
-                if [self._next] in self.rules['single']:
+                if [self._next] in self.rules['empty'] or [self._next] in self.rules['single']:
                     break
                 
                 # Check which one of the rule forms appears: X|X, X|(X), (X)|X, (X)|(X)
@@ -120,6 +128,11 @@ class Parser:
     def parse(self, string):
         """Create an abstract syntax tree from the given regular experssion."""
         
+        # Empty input is not same as empty string, since empty string has own symbol '.'
+        # TODO: Empty input could be interpret as empty language
+        if string == '':
+            raise Exception('Input for parser must not be empty. Empty string is denoted as a dot: . ')
+        
         self._stack1 = []
         self._stack2 = []
 
@@ -141,6 +154,10 @@ class Parser:
                     node = Node('s', item1[0])
                     self._stack1.append(node)
                     self._stack2.append('single')
+                elif item2 in self.rules['empty']:
+                    node = Node('e')
+                    self._stack1.append(node)
+                    self._stack2.append('single')
                 elif string[i] == '*':
                     self._reduce()
                 else:
@@ -151,17 +168,22 @@ class Parser:
                 continue
             
             self._reduce()
-            
+        
+        # TODO: There is a production rule with start symbol 'top', and it should be used to check if parsing was successful
         self.result = self._stack1[0]
 
 class Node:
     """TODO"""
 
     def __init__(self, type, label=None):
-        self.label = label
         self.type = type
         self.left = None
         self.right = None
+        
+        if type == 'e':
+            self.label = '.'
+        else:
+            self.label = label
   
     def __str__(self):
         if self.type in ['c', 'k', 'u']:

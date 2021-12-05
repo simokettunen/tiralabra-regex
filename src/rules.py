@@ -81,7 +81,7 @@ rules = {
     'union': [
         ['empty', '|', 'empty'],
         ['empty', '|', 'single'],
-        ['empty', '|', 'union'],
+        ['empty', '|', '(', 'union', ')'],
         ['empty', '|', 'concatenation'],
         ['empty', '|', 'kleene'],
         ['single', '|', 'empty'],

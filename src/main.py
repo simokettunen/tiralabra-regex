@@ -23,7 +23,11 @@ class App:
         
     def _compile(self):
         regex = input('Regular expression: ')
-        self.dfa = compile(regex)
+        
+        try:
+            self.dfa = compile(regex)
+        except Exception as error:
+            print('Compiling failed:', error)
         
     def _match(self):
         if self.dfa is None:
