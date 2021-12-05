@@ -1,5 +1,5 @@
 import unittest
-from nfa import single, union, concatenation, kleene_star
+from nfa import empty, single, union, concatenation, kleene_star
 from rabin_scott import rabin_scott
 
 class TestRabinScott(unittest.TestCase):
@@ -9,6 +9,20 @@ class TestRabinScott(unittest.TestCase):
     def filtered_terminals(self, terminals):
         """Filter the given terminals from self.terminals"""
         return ''.join(list(filter(lambda c : not c in terminals, self.terminals)))
+        
+    def test_rabin_scott_algorithm_creates_correct_dfa_from_nfa_consisting_of_empty_transition(self):
+        nfa = empty()
+        dfa = rabin_scott(nfa)
+        
+        transitionsShouldBe = [
+            [None, self.terminals],
+            [None, self.terminals],
+        ]
+        
+        self.assertSetEqual(dfa.states, {1, 2})
+        self.assertListEqual(dfa.transitions, transitionsShouldBe)
+        self.assertEqual(dfa.start_state, 1)
+        self.assertListEqual(dfa.accept_state, [1])
 
     def test_rabin_scott_algorithm_creates_correct_dfa_from_nfa_consisting_of_single_transition(self):
         nfa = single('a')
