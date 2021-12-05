@@ -32,6 +32,7 @@ Merkkijonon testaaminen säännöllistä lauseketta vasten onnistuu luokan `DFA`
 
 Funktiolle `compile` annettavan säännöllisen lausekkeen syntaksia ei ole vielä dokumentoitu kattavasti. Säännöllinen lauseke voi koostua tällä hetkellä seuraavista merkeistä:
 * `a`–`z`, `A`–`Z`, `0`–`9`, säännöllisen lausekkeen aakkoston merkit
+* `.`, tyhjä merkkijono
 * `|`, yhdiste
 * `*`,  Kleenen tähti
 * `(` ja `)`, säännöllisen lausekkeen merkkien ryhmittely
@@ -42,5 +43,4 @@ Esimerkkejä:
 * `a|b`, merkkien a ja b yhdiste
 * `a*`, merkin a Kleenen tähti
 * `(ab)*`, merkkijonon ab Kleenen tähti
-
-Tyhjiin merkkijonoihin liittyviä ominaisuuksia ja toimintoja ei ole vielä implementoitu.
+* `a(b|.)`, tyhjän merkkijonon sekä merkkijonot `a` ja `ab` tunnistava säännöllinen lauseke
