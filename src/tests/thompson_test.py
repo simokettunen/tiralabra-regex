@@ -4,7 +4,7 @@ from thompson import thompson
 
 class TestThompson(unittest.TestCase):
     def test_thompson_algorithm_handles_empty_string_correctly(self):
-        tree = Node('s', '.')
+        tree = Node('e')
         nfa = thompson(tree)
         
         self.assertSetEqual(nfa.states, {1, 2})

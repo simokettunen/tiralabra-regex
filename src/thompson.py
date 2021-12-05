@@ -3,10 +3,10 @@ from nfa import *
 def thompson(t):
     """Create a nondeterministic finite automaton from the given abstract syntax tree."""
 
+    if t.type == 'e':
+        return empty()
+
     if t.type == 's':
-        if t.label == '.':
-            return empty()
-            
         return single(t.label)
         
     if t.type == 'u':
