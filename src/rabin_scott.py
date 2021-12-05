@@ -30,6 +30,9 @@ def rabin_scott(nfa):
     transitions = []
     accept_states = []
     
+    if nfa.accept_state in initial_eps_closure:
+        accept_states.append(i)
+        
     while states_handled:
         state = states_handled.pop()
         states_unhandled.append(state)
@@ -42,7 +45,7 @@ def rabin_scott(nfa):
                 i += 1
                 states_with_bit_string[set_to_bit_string(eps_closure, nfa.i)] = i
                 
-                if nfa.i in eps_closure:
+                if nfa.accept_state in eps_closure:
                     accept_states.append(i)
                     
             s1 = states_with_bit_string[set_to_bit_string(state, nfa.i)]            
