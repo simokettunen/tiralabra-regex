@@ -9,12 +9,7 @@ class Parser:
         # stack for terminals and non-terminals
         self._stack1 = None
         
-        # assisting stack for just easier determining of rules with following equivalences:
-        # 'C' = concatenation node
-        # 'K' = Kleene star node
-        # 'S' = single character node
-        # 'U' = union node
-        # terminals are as is
+        # assisting stack for just easier determining of rules with following equivalences
         self._stack2 = None
         
         self.result = None
@@ -28,14 +23,13 @@ class Parser:
         item1 = []
         item2 = []
         
-        # Loop at most seven items since longest rule is (U)|(U)
+        # Loop at most seven items since longest rule is (union)|(union)
         for i in range(7):
             if len(self._stack1) == 0:
                 break
         
             item1.insert(0, self._stack1.pop())
             item2.insert(0, self._stack2.pop())
-            #item2 = self._stack2.pop() + item2
             
             if item2 in self.rules['empty']:
                 node = Node('e')
@@ -140,7 +134,7 @@ class Parser:
             self._stack1.append(string[i])
             self._stack2.append(string[i])
             
-            # The next charected is needed in some cases to interpret input correctly
+            # The next character is needed in some cases to interpret input correctly
             if i < len(string) - 1:
                 self._next = string[i+1]
             else:
