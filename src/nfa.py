@@ -125,10 +125,10 @@ class NFA:
         
         self.transitions = transitions
         
-        if not self.start_state is None:
+        if self.start_state is not None:
             self.start_state += i
             
-        if not self.accept_state is None:
+        if self.accept_state is not None:
             self.accept_state += i
         
         self.i += i
