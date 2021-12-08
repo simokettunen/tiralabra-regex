@@ -17,6 +17,7 @@ class Parser:
     def __str__(self):
         return f'{self.result}'
 
+    # TODO: break this into smaller components
     def _reduce(self):
         """TODO"""
         
