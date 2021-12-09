@@ -1,6 +1,6 @@
 import unittest
-from node import Node
-from thompson import thompson
+from entities.node import Node
+from algorithms.thompson import thompson
 
 class TestThompson(unittest.TestCase):
     def test_thompson_algorithm_handles_empty_string_correctly(self):

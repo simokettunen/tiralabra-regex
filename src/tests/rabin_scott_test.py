@@ -1,6 +1,6 @@
 import unittest
-from nfa import empty, single, union, concatenation, kleene_star
-from rabin_scott import rabin_scott
+from entities.nfa import empty, single, union, concatenation, kleene_star
+from algorithms.rabin_scott import rabin_scott
 
 class TestRabinScott(unittest.TestCase):
     def setUp(self):

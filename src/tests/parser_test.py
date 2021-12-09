@@ -1,6 +1,6 @@
 import unittest
-from node import Node
-from parser import Parser
+from entities.node import Node
+from algorithms.parser import Parser
 
 class TestParser(unittest.TestCase):
     def setUp(self):

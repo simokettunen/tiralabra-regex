@@ -1,5 +1,5 @@
 import unittest
-from nfa import *
+from entities.nfa import NFA, empty, single, union, kleene_star, concatenation
 
 class TestNFA(unittest.TestCase):
     def test_nfa_corresponding_to_empty_string_is_created_correctly(self):

@@ -1,5 +1,5 @@
 import unittest
-from dfa import DFA
+from entities.dfa import DFA
 
 class TestDFA(unittest.TestCase):
     def test_dfa_recognizes_union_operator_correctly(self):

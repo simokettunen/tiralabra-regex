@@ -1,4 +1,4 @@
-from nfa import *
+from entities.nfa import empty, single, union, kleene_star, concatenation
 
 def thompson(t):
     """Create a nondeterministic finite automaton from the given abstract syntax tree."""

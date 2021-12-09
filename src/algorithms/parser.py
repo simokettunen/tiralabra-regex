@@ -1,5 +1,5 @@
 from rules import rules
-from node import Node
+from entities.node import Node
     
 class Parser:
     """TODO"""

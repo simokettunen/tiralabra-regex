@@ -1,5 +1,5 @@
-from dfa import DFA
-from nfa import NFA
+from entities.dfa import DFA
+from entities.nfa import NFA
 
 def set_to_bit_string(s, i):
     """TODO"""
