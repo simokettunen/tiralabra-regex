@@ -1,5 +1,5 @@
 import unittest
-from parser import Node
+from node import Node
 from thompson import thompson
 
 class TestThompson(unittest.TestCase):
