@@ -50,3 +50,4 @@ TODO
 
 ## Lähteet
 * Aho, Alfred V.; Lam, Monica S.; Sethi, Ravi; Ullman, Jeffrey D. 2007. Compilers : Principles, Techinques & Tools. 2. painos. ISBN 0-321-49169-6.
+* Sipser, Michael. 1997. Introduction to the Theory of Computation. 1. painos. ISBN 0-534-94728-X
