@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/simokettunen/tiralabra-regex/branch/main/graph/badge.svg?token=3Z0KFH60EX)](https://codecov.io/gh/simokettunen/tiralabra-regex)
+
 # tiralabra-regex
     
 ## Dokumentaatiot
