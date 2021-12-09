@@ -1,5 +1,13 @@
-steps:
-  - name: "Upload coverage to Codecov"
-    uses: codecov/codecov-action@v2
-    with:
-      fail_ci_if_error: true
+name: CodeCov
+on: [push, pull_request]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      OS: ubuntu-latest
+      PYTHON: '3.9'
+    steps:
+    - name: "Upload coverage to Codecov"
+      uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
