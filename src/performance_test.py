@@ -13,12 +13,12 @@ def match_performance(string):
     return result
     
 def main():
-    print('Pituus   Aika (s)')
+    print('Input length  Time (s)')
     
     for i in range(8):
         string = 'a'*(10**i)
         res = match_performance(string)
-        print(f'{len(string):8} {res}')
+        print(f'{len(string):12}  {res}')
     
 if __name__ == '__main__':
     main()
