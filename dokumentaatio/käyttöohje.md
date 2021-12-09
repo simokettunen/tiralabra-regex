@@ -3,12 +3,28 @@
 Ohjelman asennus:
     
     poetry install
+    
+Ohjelman yksikkötestien suoritus:
+
+    poetry run invoke unit-test
+    
+Ohjelman suorituskykytestien suoritus:
+
+    poetry run invoke performance-test
+    
+Ohjelman testikattavuuden tulostus:
+
+    poetry run invoke coverage-report
+    
+Ohjelman pylint-raportin tulostus:
+
+    poetry run invoke pylint
 
 ## Käyttäminen käyttöliittymän kautta
 
 Ohjelman suoritus:
 
-    python3 src/main.py
+    poetry run invoke start
     
 Ohjelmassa on tekstipohjainen käyttöliittymä, joka sisältää seuraavat komennot:
 * 1 – Säännöllisen lausekkeen kääntäminen DFA:ksi
