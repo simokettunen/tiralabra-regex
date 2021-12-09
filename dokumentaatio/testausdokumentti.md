@@ -25,7 +25,7 @@ Yksikkötesteissä muodostetaan syntaksipuu, joka sisältää operaation, jonka 
 
 ## Rabin–Scottin algoritmin testaaminen
 
-Tällä hetkellä testausta ei ole tehty.
+Yksikkötestejä tehty luokalle `Parser`.
 
 ## Merkkijonon tarkastaminen
 
@@ -41,13 +41,12 @@ Suorituskykyä on testattu tiedostossa `src/performance_test.py`.
 
 Suorituskykyä on testattu merkkijonon testaamiselle säännöllisen lausekkeen muodostamaa kieltä vasten. Testauksessa on muodostettu DFA säännölliselle lausekkeelle `a*` ja testattu a-merkeistä koostuvan merkkijonon kuulumista säännöllisen lausekkeen muodostamista kieleen. Syötteen pituus alkaa pituudesta 1 kasvaen aina kertaluokalla ja päättyen pituuteen 10&nbsp;000&nbsp;000. Tuloksista nähdään, että merkkijonon testaamisella säännöllistä lauseketta vasten on aikavaativuus *O*(|*x*|), missä *x* on merkkijono.
 
-    $ python3 src/performance_test.py
-    Pituus   Aika (s)
-           1 1.1920928955078125e-06
-          10 3.814697265625e-06
-         100 2.9802322387695312e-05
-        1000 0.00029349327087402344
-       10000 0.0029954910278320312
-      100000 0.029306888580322266
-     1000000 0.2908966541290283
-    10000000 2.8829681873321533
+    Input length  Time (s)
+               1  2.1457672119140625e-06
+              10  3.0994415283203125e-06
+             100  1.71661376953125e-05
+            1000  0.00016236305236816406
+           10000  0.00165557861328125
+          100000  0.01728367805480957
+         1000000  0.1640462875366211
+        10000000  1.6296327114105225
