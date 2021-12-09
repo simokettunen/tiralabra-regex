@@ -6,3 +6,4 @@ omit = src/**/__init__.py,
        src/main.py
        src/rules.py,
        src/utils.py,
+       tasks.py,
