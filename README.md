@@ -14,4 +14,6 @@
 * [Viikkoraportti 3](viikkoraportit/viikkoraportti3.md)
 * [Viikkoraportti 4](viikkoraportit/viikkoraportti4.md)
 * [Viikkoraportti 5](viikkoraportit/viikkoraportti5.md)
+* [Viikkoraportti 6](viikkoraportit/viikkoraportti6.md)
+
 
