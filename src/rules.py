@@ -1,4 +1,26 @@
-"""Collection of the production rules of context-free grammar of regular experssion string."""
+"""
+Collection of the production rules of context-free grammar of regular expression string.
+
+Basically, this file forms a context-free grammar for regular expression string with the following settings:
+
+Variables:
+- empty
+- single
+- union
+- concatenation
+- kleene
+- top
+
+Start variable: top
+
+Terminals:
+- characters a-z, A-Z and 0-9,
+- empty string, denoted as .
+- control characters (, ), * and |
+
+The dictionary "rules" forms the collection of production rules.
+
+"""
 
 rules = {
     'top': [
