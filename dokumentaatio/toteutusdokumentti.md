@@ -7,7 +7,7 @@ Ohjelma kääntää syötteenä saadun säännllisen lausekkeen äärelliseksi e
 2. Thompsonin algoritmi
 3. Rabin–Scottin algoritmi
 
-Kääntämisen vaiheet on esitetty kuvassa 1. Ohjelma saa syötteeksi säännöllisen lausekkeen tavallisena merkkijonoa. Jäsennin jäsentää säännöllisen lausekkeen abstraktiksi syntaksipuuksi. Thompsonin algoritmilla abstrakstista syntaksipuusta muodostetaan äärellinen epädeterministinen automaatti (NFA). Rabin–Scottin algoritmi muuntaa äärellisen epädeterministisen automaatin äärelliseksi deterministiseksi automaatiksi (DFA). 
+Kääntämisen vaiheet on esitetty kuvassa 1. Ohjelma saa syötteeksi säännöllisen lausekkeen tavallisena merkkijonoa. Jäsennin jäsentää säännöllisen lausekkeen jäsennyspuuksi. Thompsonin algoritmilla jäsennyspuusta muodostetaan äärellinen epädeterministinen automaatti (NFA). Rabin–Scottin algoritmi muuntaa äärellisen epädeterministisen automaatin äärelliseksi deterministiseksi automaatiksi (DFA). 
 
 ![compiling](./imgs/compiling.png)
 
@@ -22,13 +22,13 @@ Merkkijonon tarkastaminen säännöllistä lauseketta vasten on esitetty kuvassa
 ### Jäsennin
 
 * Syöte: säännöllinen lauseke
-* Tuloste: abstrakti syntaksipuu
+* Tuloste: jäsennyspuu
 
 Jäsennin on bottom-up shift-reduce -tyyppinen.
 
 ### Thompsonin algoritmi
 
-* Syöte: abstrakti syntaksipuu
+* Syöte: jäsennyspuu
 * Tuloste: äärellinen epädeterministinen automaatti
 
 TODO
