@@ -20,17 +20,17 @@ class Parser:
         return f'{self.result}'
         
     def _reduce_empty(self):
-        node = Node('e')
+        node = Node('empty')
         self._stack1.append(node)
         self._stack2.append('empty')
 
     def _reduce_single(self, items):
-        node = Node('s', items[0])
+        node = Node('single', items[0])
         self._stack1.append(node)
         self._stack2.append('single')
         
     def _reduce_concatenation(self, items):
-        node = Node('c')
+        node = Node('concatenation')
         
         # Check which one of the rule forms appears: XX, (X)X, X(X), (X)(X)
         if isinstance(items[0], Node) and isinstance(items[1], Node):
@@ -52,7 +52,7 @@ class Parser:
         self._stack2.append('concatenation')
         
     def _reduce_kleene(self, items):
-        node = Node('k')
+        node = Node('kleene')
         
         # Check which one of the rule forms appears: X*, (X)*
         if isinstance(items[0], Node):
@@ -66,7 +66,7 @@ class Parser:
         self._stack2.append('kleene')
         
     def _reduce_union(self, items):
-        node = Node('u')
+        node = Node('union')
         
         # Check which one of the rule forms appears: X|X, X|(X), (X)|X, (X)|(X)
         if isinstance(items[0], Node) and isinstance(items[2], Node):
