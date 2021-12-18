@@ -35,9 +35,7 @@ class TestParser(unittest.TestCase):
 
     def test_parser_recognizes_kleene_star_of_kleene_star(self):
         self.parser.parse('a**')
-        
-        # TODO: Check this. The result is practically correct since a** = a* , but theoritically the result should be (k (k a None) None)
-        self.assertEqual(self.parser.result.__str__(), '(k a None)')
+        self.assertEqual(self.parser.result.__str__(), '(k (k a None) None)')
 
     def test_parser_recognizes_concatenation_of_two_empties(self):
         self.parser.parse('..')
