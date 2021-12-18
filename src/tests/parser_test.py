@@ -202,7 +202,7 @@ class TestParser(unittest.TestCase):
         self.assertEqual(self.parser.result.__str__(), '(u (c a b) (c c d))')
 
     def test_parser_recognizes_union_of_concatenation_and_union(self):
-        self.parser.parse('ab|(c|d))')
+        self.parser.parse('ab|(c|d)')
         self.assertEqual(self.parser.result.__str__(), '(u (c a b) (u c d))')
         
     def test_parser_recognizes_union_of_union_and_empty(self):
