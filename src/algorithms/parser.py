@@ -122,6 +122,11 @@ class Parser:
                 return
             
             elif popped_items2 in self._rules['concatenation']:
+                
+                # This check is for handling rules of the form X(Y|Z)* correctly
+                if self._next == '*':
+                    break
+                    
                 self._reduce_concatenation(popped_items1)
                 self._match()
                 return
