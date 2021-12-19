@@ -235,4 +235,23 @@ class TestParser(unittest.TestCase):
         self.parser.parse('0123456789')
         self.assertEqual(self.parser.result.__str__(), '(c (c (c (c (c (c (c (c (c 0 1) 2) 3) 4) 5) 6) 7) 8) 9)')
 
+    def test_parser_recognizes_concatenation_of_empty_and_double_kleene_star(self):
+        self.parser.parse('.a**')
+        self.assertEqual(self.parser.result.__str__(), '(c . (k (k a None) None))')
+        
+    def test_parser_recognizes_concatenation_of_single_and_double_kleene_star(self):
+        self.parser.parse('ab**')
+        self.assertEqual(self.parser.result.__str__(), '(c a (k (k b None) None))')
+        
+    def test_parser_recognizes_concatenation_of_union_and_double_kleene_star(self):
+        self.parser.parse('(a|b)c**')
+        self.assertEqual(self.parser.result.__str__(), '(c (u a b) (k (k c None) None))')
+        
+    def test_parser_recognizes_concatenation_of_kleene_star_and_double_kleene_star(self):
+        self.parser.parse('a*b**')
+        self.assertEqual(self.parser.result.__str__(), '(c (k a None) (k (k b None) None))')
+        
+    def test_parser_recognizes_concatenation_of_two_double_kleene_stars(self):
+        self.parser.parse('a**b**')
+        self.assertEqual(self.parser.result.__str__(), '(c (k (k a None) None) (k (k b None) None))')
         

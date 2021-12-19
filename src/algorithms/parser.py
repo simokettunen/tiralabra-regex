@@ -159,9 +159,18 @@ class Parser:
         elif popped_item2 in self._rules['single']:
             self._reduce_single(popped_item1)
             return
+            
+        popped_item1.insert(0, self._stack1.pop())
+        popped_item2.insert(0, self._stack2.pop())
+        
+        if popped_item2 in self._rules['kleene']:
+            self._reduce_kleene(popped_item1)
+            return
         
         self._stack1.append(popped_item1[0])
+        self._stack1.append(popped_item1[1])
         self._stack2.append(popped_item2[0])
+        self._stack2.append(popped_item2[1])
         self._match()
 
     def parse(self, string):
@@ -188,7 +197,8 @@ class Parser:
                 self._match_next_is_kleene()
             else:
                 self._match()
-            
+        
+        self._match()
         self._reduce_top()
         self._stack1 = None
         self._stack2 = None
