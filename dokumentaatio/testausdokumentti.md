@@ -15,8 +15,12 @@ Koska jäsentimessä oikean lopputuloksen saaminen riippuu joissain tapauksissa 
 Thompsonin algoritmin testaaminen on suoritettu yksikkötesteillä. Thompsonin algoritmi toimii rekursiivisesti perustuen jäsennyspuun solmun tyyppiin, joka voi olla tyhjä merkkijono, yksittäinen merkki, yhdiste, konkatenaatio tai Kleenen tähti. Yksikkötesteissä on oma testitapaus jokaiselle tyypille. Testitapauksissa muodostetaan tyyppiä vastaava jäsennyspuu, joka annetaan syötteenä Thompsonin algoritmille, ja testataan, muodostiko algoritmi jäsennyspuuta vastaavan NFA:n. NFA:sta tarkistetaan, NFA:n tilat, siirtymät sekä alkutila ja hyväksyvä tila.
 
 ## Rabin–Scottin algoritmin testaaminen
-
-Yksikkötestejä tehty luokalle `Parser`.
+Rabin–Scottin algoritmi testaaminen on suoritettu yksikkötesteillä. Testitapauksissa syötteenä annetaan NFA ja tarkistetaan, tuottiko algoritmi oikean DFA:n. Testitapaukset on tehty seuraaville NFA:ille:
+* NFA, joka sisältää kaksi tilaa, ja näiden välillä epsilon-siirtymä
+* NFA, joka sisältää kaksi tilaa, ja näiden välillä tavallisen siirtymän
+* NFA, joka sisältää yhdestä tilasta kaksi siirtymää
+* NFA, joka sisältää kaksi peräkkäistä siirtymää
+* NFA, joka sisältää silmukan
 
 ## Merkkijonon tarkastaminen
 
