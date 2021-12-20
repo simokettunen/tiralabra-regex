@@ -7,11 +7,9 @@ Ohjelman pystyy jakamaan seuraaviin peräkkäisiin toimintoihin:
 4. Merkkijonon tarkastaminen: tarkastetaan äärellistä determinististä automaattia vasten, kuuluuko merkkijono säännöllisen lausekkeen muodostamaan kieleen.
 
 ## Parsinnan testaaminen
-Parsinnan testaaminen on suoritettu yksikkötesteillä. Yksikkötesteissä on testitapauksen seuraaville:
-* yksittäinen merkki
-* Kleenen tähti yksittäiselle merkille, yhdisteelle, konkatenaatiolle ja Kleenen tähdelle
-* konkatenaatio seuraavien operaatioiden kombinaatioille: yksittäinen merkki, yhdiste, konkatenaatio, Kleenen tähti
-* yhdiste seuraavien operaatioiden kombinaatioille: yksittäinen merkki, yhdiste, konkatenaatio, Kleenen tähti
+Parsinnan testaaminen on suoritettu yksikkötesteillä. Testitapaukset löytyvät testikansion tiedostosta [parser_test.py](../src/tests/parser_test.py). Jäsentimen testaamissa perusperiaatteena jäsentimelle annetaan syötteeksi säännöllinen lauseke merkkijonona, minkä jälkeen tarkastetaan, tuottiko jäsennin oikean jäsennyspuun. Yksikkötesteissä jokaiselle tiedostossa [rules.py](../src/rules.py) esitetylle säännölle, missä säännön vasen puoli on `empty`, `kleene`, `concatenation` ja `union`, on muodostettu oma yksikkötesti. Lisäksi on muodostettu yksi yksikkötesti säännöille, joissa vasen puoli on `single`, sillä kaikki nämä säännöt ovat käytännössä samanlaisia ainoana erona päätesymbolina käytetty merkki. Kaiki sallitut säännöllisen lausekkeen aakkoston merkit testataan kollektiivisesti kolmessa eri testitapauksessa.
+
+Koska jäsentimessä oikean lopputuloksen saaminen riippuu joissain tapauksissa siitä, onko säännöllisessä lausekkeessa shift-toimenpiteessä juuri pinoon pushatun merkin jälkeen oleva seuraava merkki asteriski, *, eivät edellä mainitut sääntöihin perustuvat yksikkötestit eivät kata kaikkia mahdollisia tapauksia. Tällaisia ovat tilanteet, joissa säännöllisessä lausekkeessa konkatenaation jälkimmäisenä operandina on kaksinkertainen Kleenen tähti tai yhdisteen Kleenen tähti. Jokaiselle tällaiselle tilanteelle on tehty oma testitapaus, eli tilanteille, joissa konkatenaation ensimmäisenä operandina on tyhjä merkkijono, yksittäinen merkki, konkatenaatio, yhdiste tai Kleenen tähti ja toisena operandina kaksinkertainen Kleenen tähti tai yhdisteen Kleenen tähti.
 
 ## Thompsonin algoritmin testaaminen
 Thompsonin algoritmin testaaminen on suoritettu yksikkötesteillä. Yksikkötesteissä on testitapaukset seuraaville toiminnoille:
