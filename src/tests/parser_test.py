@@ -243,6 +243,10 @@ class TestParser(unittest.TestCase):
         self.parser.parse('ab**')
         self.assertEqual(self.parser.result.__str__(), '(c a (k (k b None) None))')
         
+    def test_parser_recognizes_concatenation_of_concatenation_and_double_kleene_star(self):
+        self.parser.parse('abc**')
+        self.assertEqual(self.parser.result.__str__(), '(c (c a b) (k (k c None) None))')
+        
     def test_parser_recognizes_concatenation_of_union_and_double_kleene_star(self):
         self.parser.parse('(a|b)c**')
         self.assertEqual(self.parser.result.__str__(), '(c (u a b) (k (k c None) None))')
@@ -262,6 +266,10 @@ class TestParser(unittest.TestCase):
     def test_parser_recognizes_concatenation_of_single_and_unions_kleene_star(self):
         self.parser.parse('a(b|c)*')
         self.assertEqual(self.parser.result.__str__(), '(c a (k (u b c) None))')
+        
+    def test_parser_recognizes_concatenation_of_concatenation_and_unions_kleene_star(self):
+        self.parser.parse('ab(c|d)*')
+        self.assertEqual(self.parser.result.__str__(), '(c (c a b) (k (u c d) None))')
         
     def test_parser_recognizes_concatenation_of_union_and_unions_kleene_star(self):
         self.parser.parse('(a|b)(c|d)*')
