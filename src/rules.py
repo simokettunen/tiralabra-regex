@@ -1,7 +1,8 @@
 """
 Collection of the production rules of context-free grammar of regular expression string.
 
-Basically, this file forms a context-free grammar for regular expression string with the following settings:
+Basically, this file forms a context-free grammar for regular expression string with the following
+settings:
 
 Variables:
 - empty
@@ -16,9 +17,18 @@ Start variable: top
 Terminals:
 - characters a-z, A-Z and 0-9,
 - empty string, denoted as .
-- control characters (, ), * and |
+- operation characters * and |
+- control characters ( and )
 
-The dictionary "rules" forms the collection of production rules.
+The dictionary "rules" forms the collection of production rules. Every key in the dictionary is
+left-hand side of rule and list value of the key forms right-hand side of the rule. For example,
+for the Kleene star, production rule is
+
+    kleene -> empty *
+            | single *
+            | ( union ) *
+            | ( concatenation ) *
+            | kleene *
 
 """
 
