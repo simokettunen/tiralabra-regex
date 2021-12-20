@@ -233,7 +233,7 @@ class NFA:
         Args:
             state1: start state of transition
             state2: end state of transition
-            label: symbol for which transition is perfomed
+            label: symbol for which transition is performed
 
         Raises:
             Exception, if either of the given states does not belong to set of NFA's states.
