@@ -231,9 +231,9 @@ class NFA:
         """Adds a new transition to NFA.
 
         Args:
-            state1: any NFA's state
-            state2: any NFA's state
-            label: any symbol in the alphabet
+            state1: start state of transition
+            state2: end state of transition
+            label: symbol for which transition is perfomed
 
         Raises:
             Exception, if either of the given states does not belong to set of NFA's states.
