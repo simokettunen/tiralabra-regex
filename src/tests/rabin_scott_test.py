@@ -1,22 +1,23 @@
 import unittest
 from entities.nfa import empty, single, union, concatenation, kleene_star
 from algorithms.rabin_scott import rabin_scott
+from props import alphabet
 
 class TestRabinScott(unittest.TestCase):
     def setUp(self):
-        self.terminals = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        self.symbols = alphabet
         
-    def filtered_terminals(self, terminals):
-        """Filter the given terminals from self.terminals"""
-        return ''.join(list(filter(lambda c : not c in terminals, self.terminals)))
+    def filtered_symbols(self, symbols):
+        """Filter the given symbols from self.symbols"""
+        return ''.join(list(filter(lambda c : not c in symbols, self.symbols)))
         
     def test_rabin_scott_algorithm_creates_correct_dfa_from_nfa_consisting_of_empty_transition(self):
         nfa = empty()
         dfa = rabin_scott(nfa)
         
         transitionsShouldBe = [
-            [None, self.terminals],
-            [None, self.terminals],
+            [None, self.symbols],
+            [None, self.symbols],
         ]
         
         self.assertSetEqual(dfa.states, {1, 2})
@@ -29,9 +30,9 @@ class TestRabinScott(unittest.TestCase):
         dfa = rabin_scott(nfa)
         
         transitionsShouldBe = [
-            [None, 'a', self.filtered_terminals('a')],
-            [None, None, self.terminals],
-            [None, None, self.terminals],
+            [None, 'a', self.filtered_symbols('a')],
+            [None, None, self.symbols],
+            [None, None, self.symbols],
         ]
         
         self.assertSetEqual(dfa.states, {1, 2, 3})
@@ -46,10 +47,10 @@ class TestRabinScott(unittest.TestCase):
         dfa = rabin_scott(nfa)
         
         transitionsShouldBe = [
-            [None, 'a', 'b', self.filtered_terminals('ab')],
-            [None, None, None, self.terminals],
-            [None, None, None, self.terminals],
-            [None, None, None, self.terminals],
+            [None, 'a', 'b', self.filtered_symbols('ab')],
+            [None, None, None, self.symbols],
+            [None, None, None, self.symbols],
+            [None, None, None, self.symbols],
         ]
         
         self.assertSetEqual(dfa.states, {1, 2, 3, 4})
@@ -64,10 +65,10 @@ class TestRabinScott(unittest.TestCase):
         dfa = rabin_scott(nfa)
         
         transitionsShouldBe = [
-            [None, 'a', self.filtered_terminals('a'), None],
-            [None, None, self.filtered_terminals('b'), 'b'],
-            [None, None, self.terminals, None],
-            [None, None, self.terminals, None],
+            [None, 'a', self.filtered_symbols('a'), None],
+            [None, None, self.filtered_symbols('b'), 'b'],
+            [None, None, self.symbols, None],
+            [None, None, self.symbols, None],
         ]
         
         self.assertSetEqual(dfa.states, {1, 2, 3, 4})
@@ -81,9 +82,9 @@ class TestRabinScott(unittest.TestCase):
         dfa = rabin_scott(nfa2)
         
         transitionsShouldBe = [
-            [None, 'a', self.filtered_terminals('a')],
-            [None, 'a', self.filtered_terminals('a')],
-            [None, None, self.terminals],
+            [None, 'a', self.filtered_symbols('a')],
+            [None, 'a', self.filtered_symbols('a')],
+            [None, None, self.symbols],
         ]
         
         self.assertSetEqual(dfa.states, {1, 2, 3})
