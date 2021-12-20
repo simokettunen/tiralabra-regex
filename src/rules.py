@@ -22,7 +22,7 @@ Terminals:
 
 The dictionary "rules" forms the collection of production rules. Every key in the dictionary is
 left-hand side of rule and list value of the key forms right-hand side of the rule. For example,
-for the Kleene star, production rule is
+for the Kleene star, the collection production rules is
 
     kleene -> empty *
             | single *
