@@ -1,5 +1,6 @@
 from entities.dfa import DFA
 from entities.nfa import NFA
+from props import alphabet
 
 def set_to_bit_string(s, i):
     """TODO"""
@@ -15,7 +16,16 @@ def set_to_bit_string(s, i):
     return x
 
 def rabin_scott(nfa):
-    """Create a deterministic finite automaton from the given nondeterministic finite automaton."""
+    """Creates a deterministic finite automaton from the given nondeterministic finite automaton.
+    
+    Args:
+        nfa (NFA): Nondeterministic finite automaton
+        
+    Returns:
+        Deterministic finite automaton accepting the same language as the given nondeterministic
+        finite automaton.
+    
+    """
 
     states_handled = []
     states_unhandled = []
@@ -37,7 +47,7 @@ def rabin_scott(nfa):
         state = states_handled.pop()
         states_unhandled.append(state)
         
-        for x in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789':
+        for x in alphabet:
             eps_closure = nfa.eps_closure(list(nfa.move(list(state), x)))
             
             if not (eps_closure in states_unhandled or eps_closure in states_handled):

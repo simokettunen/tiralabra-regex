@@ -1,38 +1,41 @@
-"""
-Collection of the production rules of context-free grammar of regular expression string.
+"""Collection of different properties."""
 
-Basically, this file forms a context-free grammar for regular expression string with the following
-settings:
+# The variable alphabet forms an alphabet for an language that regular expression in the program
+# accepts.
+alphabet_lowercase_letters = 'abcdefghijklmnopqrstuvwxyz'
+alphabet_uppercase_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+alphabet_digits = '0123456789'
+alphabet = alphabet_lowercase_letters + alphabet_uppercase_letters + alphabet_digits
 
-Variables:
-- empty
-- single
-- union
-- concatenation
-- kleene
-- top
+# The variable regex_production_rules forms a context-free grammar for regular expression string
+# with the following settings:
+# 
+# Variables:
+# - empty
+# - single
+# - union
+# - concatenation
+# - kleene
+# - top
+# 
+# Start variable: top
+# 
+# Terminals:
+# - characters a-z, A-Z and 0-9,
+# - empty string, denoted as .
+# - operation characters * and |
+# - control characters ( and )
+# 
+# Every key in the dictionary is left-hand side of rule and list value of the key forms right-hand
+# side of the rule. For example, for the Kleene star, the collection production rules is
+# 
+#     kleene -> empty *
+#             | single *
+#             | ( union ) *
+#             | ( concatenation ) *
+#             | kleene *
 
-Start variable: top
-
-Terminals:
-- characters a-z, A-Z and 0-9,
-- empty string, denoted as .
-- operation characters * and |
-- control characters ( and )
-
-The dictionary "rules" forms the collection of production rules. Every key in the dictionary is
-left-hand side of rule and list value of the key forms right-hand side of the rule. For example,
-for the Kleene star, the collection production rules is
-
-    kleene -> empty *
-            | single *
-            | ( union ) *
-            | ( concatenation ) *
-            | kleene *
-
-"""
-
-rules = {
+regex_production_rules = {
     'top': [
         ['empty'],
         ['single'],
@@ -46,68 +49,7 @@ rules = {
     ],
     
     'single': [
-        ['a'],
-        ['b'],
-        ['c'],
-        ['d'],
-        ['e'],
-        ['f'],
-        ['g'],
-        ['h'],
-        ['i'],
-        ['j'],
-        ['k'],
-        ['l'],
-        ['m'],
-        ['n'],
-        ['o'],
-        ['p'],
-        ['q'],
-        ['r'],
-        ['s'],
-        ['t'],
-        ['u'],
-        ['v'],
-        ['w'],
-        ['x'],
-        ['y'],
-        ['z'],
-        ['A'],
-        ['B'],
-        ['C'],
-        ['D'],
-        ['E'],
-        ['F'],
-        ['G'],
-        ['H'],
-        ['I'],
-        ['J'],
-        ['K'],
-        ['L'],
-        ['M'],
-        ['N'],
-        ['O'],
-        ['P'],
-        ['Q'],
-        ['R'],
-        ['S'],
-        ['T'],
-        ['U'],
-        ['V'],
-        ['W'],
-        ['X'],
-        ['Y'],
-        ['Z'],
-        ['0'],
-        ['1'],
-        ['2'],
-        ['3'],
-        ['4'],
-        ['5'],
-        ['6'],
-        ['7'],
-        ['8'],
-        ['9'],
+        [symbol] for symbol in alphabet
     ],
     
     'union': [
@@ -172,5 +114,5 @@ rules = {
         ['(', 'union', ')', '*'],
         ['(', 'concatenation', ')', '*'],
         ['kleene', '*'],
-    ]
+    ],
 }

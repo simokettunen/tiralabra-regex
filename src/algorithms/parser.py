@@ -1,11 +1,11 @@
-from rules import rules
+from props import regex_production_rules
 from entities.node import Node
 
 class Parser:
     """A class for shift-reduce parser to parse regular expressions."""
 
     def __init__(self):
-        self._rules = rules
+        self._rules = regex_production_rules
 
         # Stack for terminals and non-terminals
         self._stack1 = None

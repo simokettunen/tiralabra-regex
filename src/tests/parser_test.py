@@ -1,6 +1,7 @@
 import unittest
 from entities.node import Node
 from algorithms.parser import Parser
+from props import alphabet_lowercase_letters, alphabet_uppercase_letters, alphabet_digits
 
 class TestParser(unittest.TestCase):
     def setUp(self):
@@ -224,15 +225,15 @@ class TestParser(unittest.TestCase):
         self.assertEqual(self.parser.result.__str__(), '(u (u a b) (u c d))')
         
     def test_parser_recognizes_lowercase_letters_of_latin_alphabet(self):
-        self.parser.parse('abcdefghijklmnopqrstuvwxyz')
+        self.parser.parse(alphabet_lowercase_letters)
         self.assertEqual(self.parser.result.__str__(), '(c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c a b) c) d) e) f) g) h) i) j) k) l) m) n) o) p) q) r) s) t) u) v) w) x) y) z)')
         
     def test_parser_recognizes_uppercase_letters_of_latin_alphabet(self):
-        self.parser.parse('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+        self.parser.parse(alphabet_uppercase_letters)
         self.assertEqual(self.parser.result.__str__(), '(c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c (c A B) C) D) E) F) G) H) I) J) K) L) M) N) O) P) Q) R) S) T) U) V) W) X) Y) Z)')
         
     def test_parser_recognizes_digits(self):
-        self.parser.parse('0123456789')
+        self.parser.parse(alphabet_digits)
         self.assertEqual(self.parser.result.__str__(), '(c (c (c (c (c (c (c (c (c 0 1) 2) 3) 4) 5) 6) 7) 8) 9)')
 
     def test_parser_recognizes_concatenation_of_empty_and_double_kleene_star(self):
