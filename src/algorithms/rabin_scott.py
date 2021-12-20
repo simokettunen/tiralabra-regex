@@ -24,8 +24,14 @@ def rabin_scott(nfa):
     Returns:
         Deterministic finite automaton accepting the same language as the given nondeterministic
         finite automaton.
+        
+    Raises:
+        Exception if argument is not instance of class NFA.
     
     """
+
+    if not isinstance(nfa, NFA):
+        raise Exception('Argument must be instance of class NFA.')
 
     states_handled = []
     states_unhandled = []
