@@ -28,7 +28,14 @@ class TestThompson(unittest.TestCase):
         nfa = thompson(tree)
         
         self.assertSetEqual(nfa.states, {1, 2, 3, 4, 5, 6})
-        self.assertListEqual(nfa.transitions, [[1, 2, 'a'], [3, 4, 'b'], [5, 1, '.'], [5, 3, '.'], [2, 6, '.'], [4, 6, '.']])
+        self.assertListEqual(nfa.transitions, [
+            [1, 2, 'a'],
+            [3, 4, 'b'],
+            [5, 1, '.'],
+            [5, 3, '.'],
+            [2, 6, '.'],
+            [4, 6, '.'],
+        ])
         self.assertEqual(nfa.start_state, 5)
         self.assertEqual(nfa.accept_state, 6)
         
@@ -38,7 +45,13 @@ class TestThompson(unittest.TestCase):
         nfa = thompson(tree)
         
         self.assertSetEqual(nfa.states, {1, 2, 3, 4})
-        self.assertListEqual(nfa.transitions, [[1, 2, 'a'], [3, 1, '.'], [2, 4, '.'], [3, 4, '.'], [2, 1, '.']])
+        self.assertListEqual(nfa.transitions, [
+            [1, 2, 'a'],
+            [3, 1, '.'],
+            [2, 4, '.'],
+            [3, 4, '.'],
+            [2, 1, '.'],
+        ])
         self.assertEqual(nfa.start_state, 3)
         self.assertEqual(nfa.accept_state, 4)
         
@@ -49,6 +62,10 @@ class TestThompson(unittest.TestCase):
         nfa = thompson(tree)
         
         self.assertSetEqual(nfa.states, {1, 2, 3, 4})
-        self.assertListEqual(nfa.transitions, [[1, 2, 'a'], [3, 4, 'b'], [2, 3, '.']])
+        self.assertListEqual(nfa.transitions, [
+            [1, 2, 'a'],
+            [3, 4, 'b'],
+            [2, 3, '.'],
+        ])
         self.assertEqual(nfa.start_state, 1)
         self.assertEqual(nfa.accept_state, 4)

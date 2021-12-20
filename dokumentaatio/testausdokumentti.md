@@ -12,14 +12,7 @@ Parsinnan testaaminen on suoritettu yksikkötesteillä. Testitapaukset löytyvä
 Koska jäsentimessä oikean lopputuloksen saaminen riippuu joissain tapauksissa siitä, onko säännöllisessä lausekkeessa shift-toimenpiteessä juuri pinoon pushatun merkin jälkeen oleva seuraava merkki asteriski, *, eivät edellä mainitut sääntöihin perustuvat yksikkötestit eivät kata kaikkia mahdollisia tapauksia. Tällaisia ovat tilanteet, joissa säännöllisessä lausekkeessa konkatenaation jälkimmäisenä operandina on kaksinkertainen Kleenen tähti tai yhdisteen Kleenen tähti. Jokaiselle tällaiselle tilanteelle on tehty oma testitapaus, eli tilanteille, joissa konkatenaation ensimmäisenä operandina on tyhjä merkkijono, yksittäinen merkki, konkatenaatio, yhdiste tai Kleenen tähti ja toisena operandina kaksinkertainen Kleenen tähti tai yhdisteen Kleenen tähti.
 
 ## Thompsonin algoritmin testaaminen
-Thompsonin algoritmin testaaminen on suoritettu yksikkötesteillä. Yksikkötesteissä on testitapaukset seuraaville toiminnoille:
-* tyhjä merkkijono
-* yksittäinen merkki
-* kahden säännöllinen lausekkeen yhdiste
-* kahden säännöllisen lausekkeen konkatenaatio
-* säännöllisen lausekkeen Kleenen tähti
-
-Yksikkötesteissä muodostetaan syntaksipuu, joka sisältää operaation, jonka jälkeen siitä muodostetaan NFA.
+Thompsonin algoritmin testaaminen on suoritettu yksikkötesteillä. Thompsonin algoritmi toimii rekursiivisesti perustuen jäsennyspuun solmun tyyppiin, joka voi olla tyhjä merkkijono, yksittäinen merkki, yhdiste, konkatenaatio tai Kleenen tähti. Yksikkötesteissä on oma testitapaus jokaiselle tyypille. Testitapauksissa muodostetaan tyyppiä vastaava jäsennyspuu, joka annetaan syötteenä Thompsonin algoritmille, ja testataan, muodostiko algoritmi jäsennyspuuta vastaavan NFA:n. NFA:sta tarkistetaan, NFA:n tilat, siirtymät sekä alkutila ja hyväksyvä tila.
 
 ## Rabin–Scottin algoritmin testaaminen
 
