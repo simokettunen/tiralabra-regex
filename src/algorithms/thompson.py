@@ -15,6 +15,9 @@ def thompson(tree):
         Nondeterministic finite automaton (instance of class NFA) corresponding the given parse
         tree.
 
+    Raises:
+        Exception if node type is not empty, single, union, kleene or concatenation.
+
     """
 
     if tree.type == 'empty':
