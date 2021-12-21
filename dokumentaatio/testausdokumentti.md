@@ -24,9 +24,26 @@ Rabin–Scottin algoritmi testaaminen on suoritettu yksikkötesteillä. Testitap
 * NFA, joka sisältää kaksi peräkkäistä siirtymää
 * NFA, joka sisältää silmukan
 
-## Merkkijonon tarkastaminen
+## Merkkijonon tarkastamisen testaaminen
+Merkkijonon tarkastaminen on suoritettu yksikkötesteillä. Lisäksi merkkijonojen tarkastuksesta on tehty myös integraatiotestaus.
 
-Tällä hetkellä testausta ei ole tehty.
+Yksikkötestauksessa muodostetaan DFA, ja DFA:n funktiolla `match` testataan, kuuluuko merkkijono DFA:n muodostamaan kieleen. Testitapaukset on tehty seuraaville DFA:ille:
+* DFA, joka sisältää kaksi tilaa, ja näiden välillä siirtymä
+* DFA, joka sisältää tilan, josta lähtee kaksi siirtymää
+* DFA, joka sisältää kaksi peräkkäistä siirtymää ja hyväksyvän tilan viimeisessä tilassa
+* DFA, joka sisältää kaksi peräkkäistä siirtymää ja hyväksyvän tilan keskimmäisessä tilassa
+* DFA, joka sisältää silmukan
+
+Integraatiotestauksessa muodostetaan säännöllinen lauseke, joka käännetään DFA:ksi. DFA:n funktiolla `match` testataan, kuuluuko merkkijono säännöllisen lausekkeen muodostamaan kieleen. Tämä kattaa siis käytännössä ohjelman kaikki neljä vaihetta. Testitapaukset on tehty suhteellisen yksinkertaisille säännöllisille lausekkeille, kuten esimerkiksi säännöllinen lauseke `(a|b)*`.
+
+Lisäksi testitapauksia on tehty seuraaville monimutkaisemmille säännöllisille lausekkeille, jossa säännöllisen lausekkeen muodostaman kielen aakkosto on {0, 1}:
+* kieli sisältää vain yhden kerran merkin 1
+* kieli sisältää vähintään yhden kerran merkin 1
+* kieli sisältää osamerkkijonon 001
+* kieli sisältää vain parillisen pituiset merkkijonot
+* kieli sisältää merkkijonot, jotka alkavat ja päättyvät samalla merkillä
+
+Näissä testataan kaikki 0–4 merkin mittaiset merkkijonot.
 
 ## Muut yksikkötestaukset
 
