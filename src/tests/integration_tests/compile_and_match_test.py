@@ -26,7 +26,7 @@ class TestCompileAndMatch(unittest.TestCase):
         self.assertTrue(res1)
         self.assertTrue(res2)
         
-    def test_regex_consisting_of_two_characters_is_compiled_correctly(self):
+    def test_regex_consisting_of_concatenation_is_compiled_correctly(self):
         dfa = compile('aa')
         
         positives = ['aa', 'a.a', 'a..a']
@@ -62,11 +62,11 @@ class TestCompileAndMatch(unittest.TestCase):
         self.assertTrue(res1)
         self.assertTrue(res2)
         
-    def test_regex_consisting_of_kleene_star_is_compiled_correctly(self):
-        dfa = compile('a*')
+    def test_regex_consisting_of_sequential_empty_and_single_is_compiled_correctly(self):
+        dfa = compile('.a')
         
-        positives = ['.', 'a', 'aa', 'aaa', 'aaaa']
-        negatives = ['b', 'ab', 'ba']
+        positives = ['a', 'a.', '.a', '..a', 'a..']
+        negatives = ['.', 'aa', 'b', 'A']
         
         res1 = all([dfa.match(string) for string in positives])
         res2 = not any([dfa.match(string) for string in negatives])

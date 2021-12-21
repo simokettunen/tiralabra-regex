@@ -154,10 +154,14 @@ class Parser:
                 return
 
             elif popped_items2 in self._rules['union']:
+                # This check is for handling rules of the form X|(Y|Z)* and X|(Y|Z)(W) correctly
+                if self._next in ['*', '(']:
+                    break
 
                 # This check is for handling rules of the form X|YZ correctly where YZ forms
                 # concatenation
-                if [self._next] in self._rules['empty'] or [self._next] in self._rules['single']:
+                if [self._next] in self._rules['empty'] or \
+                   [self._next] in self._rules['single']:
                     break
 
                 self._reduce_union(popped_items1)
