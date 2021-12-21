@@ -2,6 +2,78 @@ import unittest
 from entities.nfa import NFA, empty, single, union, kleene_star, concatenation
 
 class TestNFA(unittest.TestCase):
+    def test_adding_one_state_to_nfa_works(self):
+        nfa = NFA()
+        nfa.add_state()
+        
+        self.assertSetEqual(nfa.states, {1})
+        self.assertListEqual(nfa.transitions, [])
+        self.assertIsNone(nfa.start_state)
+        self.assertIsNone(nfa.accept_state)
+        
+    def test_adding_two_states_to_nfa_works(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        
+        self.assertSetEqual(nfa.states, {1, 2})
+        self.assertListEqual(nfa.transitions, [])
+        self.assertIsNone(nfa.start_state)
+        self.assertIsNone(nfa.accept_state)
+        
+    def test_adding_one_transition_to_nfa_works(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, 'a')
+        
+        self.assertSetEqual(nfa.states, {1, 2})
+        self.assertListEqual(nfa.transitions, [[1, 2, 'a']])
+        self.assertIsNone(nfa.start_state)
+        self.assertIsNone(nfa.accept_state)
+        
+    def test_adding_two_transitions_to_nfa_works(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, 'a')
+        nfa.add_transition(2, 3, 'b')
+        
+        self.assertSetEqual(nfa.states, {1, 2, 3})
+        self.assertListEqual(nfa.transitions, [[1, 2, 'a'], [2, 3, 'b']])
+        self.assertIsNone(nfa.start_state)
+        self.assertIsNone(nfa.accept_state)
+        
+    def test_adding_three_transitions_to_nfa_works(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, 'a')
+        nfa.add_transition(2, 3, 'b')
+        nfa.add_transition(1, 3, 'c')
+        
+        self.assertSetEqual(nfa.states, {1, 2, 3})
+        self.assertListEqual(nfa.transitions, [[1, 2, 'a'], [2, 3, 'b'], [1, 3, 'c']])
+        self.assertIsNone(nfa.start_state)
+        self.assertIsNone(nfa.accept_state)
+        
+    def test_increasing_nfas_state_indices_by_1_works(self):
+        nfa = NFA()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_state()
+        nfa.add_transition(1, 2, 'a')
+        nfa.add_transition(2, 3, 'b')
+        nfa.add_transition(1, 3, 'c')
+        nfa.increase_by_i(1)
+        
+        self.assertSetEqual(nfa.states, {2, 3, 4})
+        self.assertListEqual(nfa.transitions, [[2, 3, 'a'], [3, 4, 'b'], [2, 4, 'c']])
+        self.assertIsNone(nfa.start_state)
+        self.assertIsNone(nfa.accept_state)
+
     def test_nfa_corresponding_to_empty_string_is_created_correctly(self):
         nfa = empty()
         

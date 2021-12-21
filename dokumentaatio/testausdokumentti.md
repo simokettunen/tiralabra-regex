@@ -11,7 +11,7 @@ Parsinnan testaaminen on suoritettu yksikkötesteillä. Testitapaukset löytyvä
 
 Koska jäsentimessä oikean lopputuloksen saaminen riippuu joissain tapauksissa siitä, onko säännöllisessä lausekkeessa shift-toimenpiteessä juuri pinoon pushatun merkin jälkeen oleva seuraava merkki asteriski, *, eivät edellä mainitut sääntöihin perustuvat yksikkötestit eivät kata kaikkia mahdollisia tapauksia. Tällaisia ovat tilanteet, joissa säännöllisessä lausekkeessa konkatenaation jälkimmäisenä operandina on kaksinkertainen Kleenen tähti tai yhdisteen Kleenen tähti. Jokaiselle tällaiselle tilanteelle on tehty oma testitapaus, eli tilanteille, joissa konkatenaation ensimmäisenä operandina on tyhjä merkkijono, yksittäinen merkki, konkatenaatio, yhdiste tai Kleenen tähti ja toisena operandina kaksinkertainen Kleenen tähti tai yhdisteen Kleenen tähti.
 
-Kaiki tilanteet, joissa yhdisteen jälkimmäinen operandi sisältää sulkuja, eivät myöskään sisälly edellä mainittujen yksikkötestien kattavuuteen. Näille tilanteille on tehty omat testitapaukset, ja näitä on esimerkiksi tilanteet, joissa yhdisteen jälkimmäinen operandi on yhdisteen Kleenen tähti tai kahden yhdisteen konkatenaatio.
+Kaikki tilanteet, joissa yhdisteen jälkimmäinen operandi sisältää sulkuja, eivät myöskään sisälly edellä mainittujen yksikkötestien kattavuuteen. Näille tilanteille on tehty omat testitapaukset, ja näitä on esimerkiksi tilanteet, joissa yhdisteen jälkimmäinen operandi on yhdisteen Kleenen tähti tai kahden yhdisteen konkatenaatio.
 
 ## Thompsonin algoritmin testaaminen
 Thompsonin algoritmin testaaminen on suoritettu yksikkötesteillä. Thompsonin algoritmi toimii rekursiivisesti perustuen jäsennyspuun solmun tyyppiin, joka voi olla tyhjä merkkijono, yksittäinen merkki, yhdiste, konkatenaatio tai Kleenen tähti. Yksikkötesteissä on oma testitapaus jokaiselle tyypille. Testitapauksissa muodostetaan tyyppiä vastaava jäsennyspuu, joka annetaan syötteenä Thompsonin algoritmille, ja testataan, muodostiko algoritmi jäsennyspuuta vastaavan NFA:n. NFA:sta tarkistetaan, NFA:n tilat, siirtymät sekä alkutila ja hyväksyvä tila.
@@ -47,7 +47,15 @@ Näissä testataan kaikki 0–4 merkin mittaiset merkkijonot.
 
 ## Muut yksikkötestaukset
 
-Yksikkötestejä on tehty luokille `NFA` ja `DFA`.
+Yksikkötestejä on tehty luokille `Node`, `NFA` ja `DFA`.
+
+Luokan `Node` osalta on testattu solmun muodostaminen jokaisella eri tyypillä. Testitapaukissa muodostetaan solmu, ja katsotaan, onko lopputulos oikein.
+
+Luokkien `DFA` ja `NFA` osalta on testattu tilojen sekä siirtymien lisäämiset automaattiin. Kummaltakin luokalta tilojen osalta testataan yhden ja kahden tilan lisääminen sekä yhden, kahden ja kolmen siirtymän lisääminen. Lisäksi luokalta `NFA` on testattu tilojen indeksien korottaminen, sekä epsilon-sulkeumat ja siirtymät.
+
+Lisäksi on testattu luokan  `NFA` ulkopuoliset, mutta NFA:n muodostavat funktiot `empty()`, `single()`, `concatenation()`, `kleene` ja `union`. Näissä testataan, muodostavatko kyseiset funktiot oikeanlaiset NFA:t.
+
+Luokan `DFA` metodin `match` testaus on esitetty osiossa [merkkijonon tarkastamisen testaaminen](#merkkijonon-tarkastamisen-testaaminen).
 
 ## Suoriuskykytestaus
 
