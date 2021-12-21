@@ -5,9 +5,9 @@ class DFA:
 
     Attributes:
         states: set of integers presenting set of states
-        transitions: two dimensional array of strings, representing set of transitions. String at
-            row i and column j represents transition i -> j with any symbol character in the string
-            (i, j).
+        transitions: dictionary where keys are symbols in alphabet. Every key has as its value a
+            list having as many items as states. Now transition[x][y] = z represents transition
+            (y-1) -> z with symbol x. Minus one because of list indices start with zero.
         start state: integer representing start state of DFA
         accept state: list of integers representing accept state of DFA
         i: largest index of state indices
@@ -16,10 +16,13 @@ class DFA:
 
     def __init__(self):
         self.states = set()
-        self.transitions = []
+        self.transitions = {}
         self.start_state = None
         self.accept_state = None
         self.i = 0
+        
+        for symbol in alphabet:
+            self.transitions[symbol] = []
 
     def __str__(self):
         return f'\n{self.states}\n{self.transitions}\n{self.start_state}\n{self.accept_state}'
@@ -37,11 +40,9 @@ class DFA:
 
         self.i += 1
         self.states.add(self.i)
-
-        for terminal_list in self.transitions:
-            terminal_list.append(None)
-
-        self.transitions.append([None]*self.i)
+        
+        for symbol in alphabet:
+            self.transitions[symbol].append(None)
 
         return self.i
 
@@ -61,21 +62,18 @@ class DFA:
 
         if not state1 in self.states or not state2 in self.states:
             raise Exception('Both states must belong to set of NFA\'s states')
-
+        
         if not symbol in alphabet:
             raise Exception('The given symbol must belong to alphabet')
-
-        if self.transitions[state1-1][state2-1] is None:
-            self.transitions[state1-1][state2-1] = symbol
-        else:
-            self.transitions[state1-1][state2-1] += symbol
+            
+        self.transitions[symbol][state1-1] = state2
 
     def match(self, string):
         """Tests if given string belongs to language formed by DFA.
 
-        Initially, start state is set as current state. Then, for each character in the given
-        string, a new currect state is searched from transition array. After scanning the whole
-        string, if current state is in the set of accept states, string is accepet, else rejected.
+        Initially, start state is set as current state. Then, for each character the next state
+        is looked from transition table. Finally, if current state is accept state, then accept,
+        else reject.
 
         Args:
             string (str): string to be matched
@@ -85,20 +83,21 @@ class DFA:
             False if string does not belong to language formed by DFA
 
         """
-
+        
         current_state = self.start_state
 
         for char in string:
-            new_state = 0
-
-            for symbols in self.transitions[current_state-1]:
-                new_state += 1
-
-                if symbols is None:
-                    continue
-
-                if char in symbols:
-                    current_state = new_state
+        
+            # Skip empty char
+            if char == '.':
+                continue
+        
+            # If DFA is not constructed with Rabin-Scott algorithm, reject on character not
+            # belonging to alphabet of the language
+            if self.transitions[char][current_state-1] is None:
+                return False
+                
+            current_state = self.transitions[char][current_state-1]
 
         if current_state in self.accept_state:
             return True
