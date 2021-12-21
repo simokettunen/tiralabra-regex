@@ -63,7 +63,7 @@ Esimerkkejä:
 * `a|b`, merkkien a ja b yhdiste
 * `a*`, merkin a Kleenen tähti
 * `(ab)*`, merkkijonon ab Kleenen tähti
-* `a(b|.)`, tyhjän merkkijonon sekä merkkijonot `a` ja `ab` tunnistava säännöllinen lauseke
+* `a(b|.)`, merkkijonot `a` ja `ab` tunnistava säännöllinen lauseke
 * säännöllisiä lausekkeita kielelle, jonka aakkosto on {0, 1}:
     * `0*10*`, kieli, jossa jokainen merkkijono sisältää vain yhden kerran merkin 1
     * `(0|1)*1(0|1)*`, kieli, jossa jokainen merkkijono sisältää vähintään kerran merkin 1
