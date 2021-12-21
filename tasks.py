@@ -14,7 +14,7 @@ def pylint(ctx):
 
 @task
 def unit_test(ctx):
-    ctx.run('pytest src')
+    ctx.run('pytest src/tests/unit_tests')
     
 @task
 def performance_test(ctx):
