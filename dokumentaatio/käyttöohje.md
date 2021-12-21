@@ -8,6 +8,10 @@ Ohjelman yksikkötestien suoritus:
 
     poetry run invoke unit-test
     
+Ohjelman integraatiotestien suoritus:
+
+    poetry run invoke integration-test
+    
 Ohjelman suorituskykytestien suoritus:
 
     poetry run invoke performance-test

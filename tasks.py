@@ -17,6 +17,10 @@ def unit_test(ctx):
     ctx.run('pytest src/tests/unit_tests')
     
 @task
+def integration_test(ctx):
+    ctx.run('pytest src/tests/integration_tests')
+    
+@task
 def performance_test(ctx):
     ctx.run('python3 src/performance_test.py')
 
