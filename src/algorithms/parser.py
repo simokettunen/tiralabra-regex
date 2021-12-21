@@ -245,6 +245,8 @@ class Parser:
         self._stack2 = []
 
         for i in range(len(string)):
+        
+            # Shift operation here
             self._stack1.append(string[i])
             self._stack2.append(string[i])
 
@@ -253,6 +255,7 @@ class Parser:
             else:
                 self._next = ''
 
+            # Check in match or match_next_is_asterisk if reduce operation can be performed
             if self._next == '*':
                 self._match_next_is_asterisk()
             else:
