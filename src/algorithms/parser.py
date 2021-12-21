@@ -29,29 +29,30 @@ class Parser:
     def _reduce_single(self, items):
         """Perfoms a reduce action for rule wherein left side is single."""
 
-        node = Node('single', items[0])
+        node = Node('single', label=items[0])
         self._stack1.append(node)
         self._stack2.append('single')
 
     def _reduce_concatenation(self, items):
         """Performs a reduce action for rule wherein left side is concatenation."""
-        node = Node('concatenation')
 
         # Check which one of the rule forms appears: XX, (X)X, X(X), (X)(X)
         if isinstance(items[0], Node) and isinstance(items[1], Node):
-            node.left = items[0]
-            node.right = items[1]
+            left = items[0]
+            right = items[1]
         elif isinstance(items[0], Node) and isinstance(items[2], Node):
-            node.left = items[0]
-            node.right = items[2]
+            left = items[0]
+            right = items[2]
         elif isinstance(items[1], Node) and isinstance(items[3], Node):
-            node.left = items[1]
-            node.right = items[3]
+            left = items[1]
+            right = items[3]
         elif isinstance(items[1], Node) and isinstance(items[4], Node):
-            node.left = items[1]
-            node.right = items[4]
+            left = items[1]
+            right = items[4]
         else:
             raise Exception('Syntax error.')
+
+        node = Node('concatenation', left=left, right=right)
 
         self._stack1.append(node)
         self._stack2.append('concatenation')
@@ -59,15 +60,15 @@ class Parser:
     def _reduce_kleene(self, items):
         """Performs a reduce action for rule wherein left side is kleene."""
 
-        node = Node('kleene')
-
         # Check which one of the rule forms appears: X*, (X)*
         if isinstance(items[0], Node):
-            node.left = items[0]
+            left = items[0]
         elif isinstance(items[1], Node):
-            node.left = items[1]
+            left = items[1]
         else:
             raise Exception('Syntax error.')
+
+        node = Node('kleene', left=left)
 
         self._stack1.append(node)
         self._stack2.append('kleene')
@@ -75,23 +76,23 @@ class Parser:
     def _reduce_union(self, items):
         """Performs a reduce action for rule wherein left side is union."""
 
-        node = Node('union')
-
         # Check which one of the rule forms appears: X|X, X|(X), (X)|X, (X)|(X)
         if isinstance(items[0], Node) and isinstance(items[2], Node):
-            node.left = items[0]
-            node.right = items[2]
+            left = items[0]
+            right = items[2]
         elif isinstance(items[0], Node) and isinstance(items[3], Node):
-            node.left = items[0]
-            node.right = items[3]
+            left = items[0]
+            right = items[3]
         elif isinstance(items[1], Node) and isinstance(items[4], Node):
-            node.left = items[1]
-            node.right = items[4]
+            left = items[1]
+            right = items[4]
         elif isinstance(items[1], Node) and isinstance(items[5], Node):
-            node.left = items[1]
-            node.right = items[5]
+            left = items[1]
+            right = items[5]
         else:
             raise Exception('Syntax error.')
+
+        node = Node('union', left=left, right=right)
 
         self._stack1.append(node)
         self._stack2.append('union')
@@ -246,6 +247,8 @@ class Parser:
         for i in range(len(string)):
             self._stack1.append(string[i])
             self._stack2.append(string[i])
+            
+            print(self._stack2)
 
             if i < len(string) - 1:
                 self._next = string[i+1]
