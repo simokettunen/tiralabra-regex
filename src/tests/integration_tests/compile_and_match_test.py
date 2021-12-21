@@ -206,7 +206,7 @@ class TestCompileAndMatch(unittest.TestCase):
         self.assertTrue(res1)
         self.assertTrue(res2)
         
-    def test_regex_accepting_language_in_which_string_is_of_event_length(self):
+    def test_regex_accepting_language_in_which_string_is_of_even_length(self):
         dfa = compile('((0|1)(0|1))*')
         
         positives = ['.', '00', '01', '10', '11', '0000', '0001', '0010', '0011', '0100', '0101', '0110', '0111', '1000', '1001', '1010', '1011', '1100', '1110', '1111']
