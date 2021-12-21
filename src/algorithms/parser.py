@@ -247,8 +247,6 @@ class Parser:
         for i in range(len(string)):
             self._stack1.append(string[i])
             self._stack2.append(string[i])
-            
-            print(self._stack2)
 
             if i < len(string) - 1:
                 self._next = string[i+1]
