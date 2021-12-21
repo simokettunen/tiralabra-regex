@@ -2,7 +2,7 @@
 
 ## Yleisrakenne
 
-Ohjelma kääntää syötteenä saadun säännllisen lausekkeen äärelliseksi epädeterministiseksi automaatiksi, jota vasten voidaan tarkastaa, kuuluuko syötteenä annettu merkkijono säännöllisen lausekkeen muodostamaan kieleen. Kääntäminen koostuu seuraavista peräkkäisistä toiminnoista:
+Ohjelma kääntää syötteenä saadun säännöllisen lausekkeen äärelliseksi epädeterministiseksi automaatiksi, jota vasten voidaan tarkastaa, kuuluuko syötteenä annettu merkkijono säännöllisen lausekkeen muodostamaan kieleen. Kääntäminen koostuu seuraavista peräkkäisistä toiminnoista:
 1. Jäsentäminen
 2. Thompsonin algoritmi
 3. Rabin–Scottin algoritmi
@@ -19,30 +19,30 @@ Merkkijonon tarkastaminen säännöllistä lauseketta vasten on esitetty kuvassa
 
 **Kuva 2**: Merkkijonon tarkastaminen säännöllistä lauseketta vasten.
 
-### Jäsennin
+### Tietorakenteet
 
-* Syöte: säännöllinen lauseke
-* Tuloste: jäsennyspuu
+Ohjelmaan on implementoitu tietorakenteet jäsennyspuusta, äärellisestä epädeterministisestä automaatista ja äärellisestä deterministisestä automaatista.
 
-Jäsennin on bottom-up shift-reduce -tyyppinen.
+Jäsennyspuu koostuu solmuista, joissa jokaisella solmulla voi olla nolla, yksi tai kaksi solmua riippuen sen tyypistä. Jos solmun tyyppi on konkatenaatio (`concatenation`) tai yhdiste (`union`), sisältää solmu kaksi lapsisolmua ja jos solmun tyyppi on Kleenen tähti (`kleene`), sisältää solmu yhden lapsisolmun. Solmun tyypillä yksittäinen merkki (`single`), ei ole yhtään lapsisolmua, vaan solmun tietovarastossa on kyseinen merkki. Samoin on myös solmun tyypillä tyhjä (`empty`), jolla ei ole yhtään lapsisolmua, vaan tietovarasto sisältää tyhjän merkin.
 
-### Thompsonin algoritmi
+NFA ja DFA sisältävät tiedon automaatin tiloista, siirtymistä sekä aloitus- ja hyväksymistiloista. Sekä NFA että DFA sisältävät metodit uuden tilan ja uuden siirtymän lisäämiseen automaattin. Lisäksi NFA:ssa on toteuttu funktio, jolla kaikkien tilojen indekseihin voidaan lisätä jokin kokonaisluku.
 
-* Syöte: jäsennyspuu
-* Tuloste: äärellinen epädeterministinen automaatti
+NFA sisältää laskentafunktiot:
+* epsilon-sulkeuma, jossa lasketaan kaikki tilat, joihin päästään syötteenä annetusta tilasta epsilon-siirtymillä
+* siirtymä, jossa lasketaan kaikki tilat, joihin päästään annetusta tilajoukosta annetulla symbolilla
 
-TODO
+DFA sisältää seuraavan laskentafunktion:
+* merkkijonon tarkastaminen DFA:n määrittää kieltä vasten
 
-### Rabin–Scottin algoritmi
+### Algoritmit
 
-* Syöte: äärellinen epädeterministinen automaatti
-* Tuloste: äärellinen deterministinen automaatti
+Syötteenä saatava säännöllinen lauseke on merkkijono, jonka tarkempi syntaksi on esitetty [käyttöohjeessa](./käyttöohje.md#säännöllisen-lausekkeen-syntaksi). Jäsennin on bottom-up shift-reduce -tyyppinen. Se käy syötteenä saadun merkkijonon merkki kerrallaan läpi, ja suorittaa merkeille aina shift-operaation, minkä jälkeen mahdollisesti yhden tai useamman reduce-operaation. Shift-operaatioissa merkki siirretään pinoon, ja reduce-operaatiossa pinon alkioita muunnetaan toisiksi alkioiksi säännöllisen lausekkeen merkkijonon sääntöjen mukaisesti. Mikäli säännöllisen lausekkeen syntaksi on ollut oikein, lopputuloksena pinon ainoa alkio on kokonainen jäsennyspuu.
 
-TODO
+Thompsonin algoritmi toimii rekursiivisesti ja saa syötteeksi jäsennyspuun juuren. Jos solmun tyyppi on `empty`tai `single`, konstruoidaan sitä vastaava NFA. Kummatkin lapsisolmut syötetään uudestaan Thompsonin algoritmille tyypeillä `concatenation` sekä`union` ja näistä saadut NFA:t yhdistetään uudeksi NFA:ksi. Tyypillä `kleene` toinen lapsisolmuista syötetään Thompsonin algoritmille ja lopputuloksesta konstruoidaan uusi NFA.
 
-### Merkkijonon tarkastaminen
+Rabin–Scottin algoritmissa määritetään ensin NFA:n aloitustilan epsilon-sulkeuma, ja tästä muodostetaan DFA:n aloitustila. Epsilon-sulkeumasta määritetään eri symboleille siirtymien epsilon-sulkeumat, ja jos tuloksena on sellainen epsilon-sulkeuma, lisätään se DFA:n uudeksi tilaksi. Prosessia jatketaan niin kauan, kunnes kaikki epsilon-sulkeumat ovat käsitelty, eikä uusia enää ole.
 
-Merkkijonon tarkastus tapahtuu luokan `DFA` funktiolla `match`.
+Merkkijonon tarkastus tapahtuu luokan `DFA` funktiolla `match`. Merkkijono käydään merkki kerrallaan läpi ja siirrytään siirtymätaulukon mukainen siirtymä tarkastelun alla olevan merkin ja tilan perusteella. Merkkijono hyväksytään, jos kaikkien merkkien läpikäymisen jälkeen viimeisenä tilana on jokin hyväksyvistä tiloista, muuten merkkijono hylätään.
 
 ## Saavutetut aika- ja tilavaativuudet
 
