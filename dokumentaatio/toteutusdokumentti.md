@@ -48,6 +48,16 @@ Merkkijonon tarkastus tapahtuu luokan `DFA` funktiolla `match`. Merkkijono käyd
 
 TODO
 
+## Puutteet ja parannusehdotukset
+
+Ohjelmassa on havaittu seuraavat puutteet:
+* Jäsennin vaatii, että säännöllisen lausekkeen sulut ovat mahdollisimman sievennetyt. Esimerkiksi säännöllinen lauseke `(a*)|b` tuottaa syntaksivirheen. Ohjelma hyväksyy yhtäpitävän säännöllisen lausekkeen `a*|b`.
+* Jäsennin ei hyväksy mielivaltaista määrää yhdisteitä ilman sulkujen käyttöä. Esimerkiksi `a|b|c` tuottaa syntaksivirheen. Ohjelma hyväksyy yhtäpitävät säännölliset lausekkeet `(a|b)|c` sekä `a|(b|c)`. 
+
+Parannusehdotukset:
+
+* Pahimmassa tapauksessa Rabin–Scottin algoritmi saattaa tuotta *n* tilaa sisältävästä NFA:sta DFA:n, joka sisältää 2<sup>*n*</sup> tilaa. Määrittelydokumentissa mahdollisesti toteuttavaksi ehdotettua DFA:n tilojen minimointia ei ole toteuttu, sillä projektin laajuus on jo tällä toteutuksella kattava. Ahon et al. (2007, s. 153) mukaan tilojen eksponentiaalinen kasvu ei tule käytännössä ongelmaksi, sillä *-- part of the power of the automaton-based approach to lexical analysis is that for real languages, the NFA and DFA have approximately the same number of states, and the exponential behavior is not seen*. Ongelmaa ei ole myöskään havaittu ohjelmassa.
+
 ## Lähteet
 * Aho, Alfred V.; Lam, Monica S.; Sethi, Ravi; Ullman, Jeffrey D. 2007. Compilers : Principles, Techinques & Tools. 2. painos. ISBN 0-321-49169-6.
 * Sipser, Michael. 1997. Introduction to the Theory of Computation. 1. painos. ISBN 0-534-94728-X
