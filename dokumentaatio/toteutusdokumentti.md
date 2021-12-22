@@ -44,9 +44,23 @@ Rabin–Scottin algoritmissa määritetään ensin NFA:n aloitustilan epsilon-su
 
 Merkkijonon tarkastus tapahtuu luokan `DFA` funktiolla `match`. Merkkijono käydään merkki kerrallaan läpi ja siirrytään siirtymätaulukon mukainen siirtymä tarkastelun alla olevan merkin ja tilan perusteella. Merkkijono hyväksytään, jos kaikkien merkkien läpikäymisen jälkeen viimeisenä tilana on jokin hyväksyvistä tiloista, muuten merkkijono hylätään.
 
-## Saavutetut aika- ja tilavaativuudet
+## Saavutetut aikavaativuudet
+Alla olevassa pseudokoodissa on esitetty testaaminen merkkijonon kuulumisesta DFA:n muodostamaan kieleen. Merkkijonon jokainen merkki käydään kerran läpi, ja jokaisella merkillä haetaan uusi tila siirtymätaulukosta, joka voidaan tehdä vakioajassa. Tällöin viimeisen tilan laskeminen saadaan lineaarisessa ajassa suhteessa merkkijonon pituuteen. Tarkistaminen, onko viimeinen tila hyväksyvä tila, voidaan suorittaa vakioajassa. Saavutettu aikavaativuus on testaamiselle, kuuluuko merkkijono DFA:n määrittämään kieleen, on siis *O*(|*x*|)*, missä *x* on merkkijono.
 
-TODO
+    current_state = start_state
+    for each character in string
+        if character is empty character then
+            continue scanning
+        end if
+        
+        current state = lookup from transition table by character and current_state
+    end for
+
+    if current_state is accept_state then
+        accept
+    else
+        reject
+    end if
 
 ## Puutteet ja parannusehdotukset
 
