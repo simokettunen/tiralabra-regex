@@ -1,14 +1,16 @@
-from algorithms.parser import Parser
 from utils import compile
 from time import time
 import random
+import math
+
+import matplotlib.pyplot as plt
 
 def random_regex(n):
     items = [
         '.',
         'aa',
-        'abcdefghijklmnopqrstuvwxyz',
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        'abcdefghijk',
+        'ABCDEFGHIJK',
         '0123456789',
         '*',
         '((abc|123)|(ABC|DEF))',
@@ -24,9 +26,9 @@ def random_regex(n):
         
     return regex
 
-def execute_match_performance(string):
-    dfa = compile('a*')
-    
+def execute_match_performance(regex, string):
+    dfa = compile(regex)
+
     start = time()
     is_match = dfa.match(string)
     end = time()
@@ -35,80 +37,118 @@ def execute_match_performance(string):
     
     return result
     
-def execute_parser_performance(string):
-    parser = Parser()
-    
+def execute_compile_performance(regex):
     start = time()
-    dfa = parser.parse(string)
+    dfa = compile(regex)
     end = time()
     
     result = end - start
     
     return result
     
-def parser_performance():
-    print('Parser performance test')
-    print('Input length  Time (s)')
+def run_test_cases(test_cases, test, xlabel, ylabel, title):
+    data_x = []
+    data_y = []
     
-    test_cases = [
-        [
-            'a'*(10**1),
-            'a'*(10**2),
-            'a'*(10**3),
-            'a'*(10**4),
-            'a'*(10**5),
-        ],
+    i = 0
+    for test_case in test_cases:
+        data_x.append([])
+        data_y.append([])
+
+        for string in test_case[2]:
         
-        [
-            'a' + '*'*(10**1),
-            'a' + '*'*(10**2),
-            'a' + '*'*(10**3),
-            'a' + '*'*(10**4),
-            'a' + '*'*(10**5),
-        ],
+            if test == 'compile':
+                res = execute_compile_performance(string)
+            elif test == 'match':
+                res = execute_match_performance(test_case[1], string)
+                
+            data_x[i].append(len(string))
+            data_y[i].append(res)
         
-        [
-            '('*(10**1) + 'a' + '|a)'*(10**1) + '|a',
-            '('*(10**2) + 'a' + '|a)'*(10**2) + '|a',
-            '('*(10**3) + 'a' + '|a)'*(10**3) + '|a',
-            '('*(10**4) + 'a' + '|a)'*(10**4) + '|a',
-            '('*(10**5) + 'a' + '|a)'*(10**5) + '|a',
-        ],
+        i += 1
         
-        [
-            random_regex(10**1),
-            random_regex(10**2),
-            random_regex(10**3),
-            random_regex(10**4),
-            random_regex(10**5),
-        ],
+    print('')
+    
+    for j in range(i):
+        plt.plot(data_x[j], data_y[j], f'{test_cases[j][0]}.')
+        
+    plt.legend([test_case[1] for test_case in test_cases])
+    
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.show()
+
+    
+def compile_performance():
+    
+    lengths = [
+        10**1*1,
+        10**1*3,
+        10**1*5,
+        10**1*8,
+        10**2*1,
+        10**2*2,
+        10**2*3,
+        10**2*4,
+        10**2*5,
+        10**2*6,
     ]
     
-    for test_case in test_cases:    
-        for string in test_case:
-            try:
-                res = execute_parser_performance(string)
-            except:
-                print(string)
-            print(f'{len(string):12}  {res}')
-        
-    print('')
+    test_cases = [
+        ['b', 'Concatenations', ['a'*n for n in lengths]],
+        ['g', 'Kleene stars', ['a' + '*'*n for n in lengths]],
+        ['r', 'Unions', ['('*math.floor(n/4) + 'a' + '|a)'*math.floor(n/4) + '|a' for n in lengths]],
+        ['c', 'Random regular expression', [random_regex(n) for n in lengths]],
+    ]
+    
+    run_test_cases(
+        test_cases,
+        'compile',
+        'Length of regular expression (characters)',
+        'Time (s)',
+        'Compiling regular expression to DFA',
+    )
         
 def match_performance():
-    print('Match performance test')
-    print('Input length  Time (s)')
+
+    lengths = [
+        10**5*1,
+        10**5*5,
+        10**6*1,
+        10**6*2,
+        10**6*3,
+        10**6*4,
+        10**6*5,
+        10**6*6,
+        10**6*7,
+        10**6*8,
+        10**6*9,
+        10**7*1,
+    ]
     
-    for i in range(8):
-        string = 'a'*(10**i)
-        res = execute_match_performance(string)
-        print(f'{len(string):12}  {res}')
+    test_cases = [
     
-    print('')
+        # Any number of ones
+        ['g', '1*', ['1'*n for n in lengths]],
         
+        # At least single one
+        ['r', '(0|1)*1(0|1)*', ['1'*n for n in lengths]],
+        
+        # String starts and ends with same char (0 or 1)
+        ['c', '((0(0|1)*0|1(0|1)*1)|0)|1', ['1'*n for n in lengths]],
+    ]
     
+    run_test_cases(
+        test_cases,
+        'match',
+        'Length of string (characters)',
+        'Time (s)',
+        'Matching string',
+    )
     
 def main():
-    parser_performance()
+    compile_performance()
     match_performance()
     
 if __name__ == '__main__':

@@ -57,18 +57,30 @@ Lisäksi on testattu luokan  `NFA` ulkopuoliset, mutta NFA:n muodostavat funktio
 
 Luokan `DFA` metodin `match` testaus on esitetty osiossa [merkkijonon tarkastamisen testaaminen](#merkkijonon-tarkastamisen-testaaminen).
 
-## Suoriuskykytestaus
+## Suorituskykytestaus
+Suorituskykytestaus on tehty säännöllisen lausekkeen kääntämiselle DFA:ksi sekä merkkijonon tarkastamiselle säännöllisen lausekkeen muodostamaan kieleen.
 
-Suorituskykyä on testattu tiedostossa `src/performance_test.py`.
+Säännöllisen lausekkeen kääntämisessä on muodostettu erilaisia säännöllisiä lausekkeita, jotka ovat neljää eri tyyppiä:
+* ainoastaan konkatenaatioita sisältävä säännöllinen lauseke 
+* ainoastaan Kleenen tähtiä sisältävä säännöllinen lauseke
+* ainoastaan yhdisteitä sisältävä säännöllinen lauseke
+* satunnainen säännöllinen lauseke
 
-Suorituskykyä on testattu merkkijonon testaamiselle säännöllisen lausekkeen muodostamaa kieltä vasten. Testauksessa on muodostettu DFA säännölliselle lausekkeelle `a*` ja testattu a-merkeistä koostuvan merkkijonon kuulumista säännöllisen lausekkeen muodostamista kieleen. Syötteen pituus alkaa pituudesta 1 kasvaen aina kertaluokalla ja päättyen pituuteen 10&nbsp;000&nbsp;000. Tuloksista nähdään, että merkkijonon testaamisella säännöllistä lauseketta vasten on aikavaativuus *O*(|*x*|), missä *x* on merkkijono.
+Testitapauksissa katsottiin, kuinka paljon aikaa kuluu säännöllisen lausekkeen kääntämiseen verrattuna säännöllisen lausekkeen sisältämien merkkien pituuteen. Tulokset on esitetty kuvassa 1.
 
-    Input length  Time (s)
-               1  2.1457672119140625e-06
-              10  3.0994415283203125e-06
-             100  1.71661376953125e-05
-            1000  0.00016236305236816406
-           10000  0.00165557861328125
-          100000  0.01728367805480957
-         1000000  0.1640462875366211
-        10000000  1.6296327114105225
+![Compiling performance results](./imgs/compiling_performance.png)
+
+**Kuva 1**: Kääntämiseen kulunut aika säännöllisen lausekkeen merkkien määrän funktiona
+
+Merkkijonon tarkastamisessa on luotu seuraavat säännölliset lausekkeet
+* `1*`, mikä tahansa määrä ainoastaan merkkiä 1
+* `(0|1)*1(0|1)`, vähintään kerran merkki 1 ja mikä tahansa määrä merkkiä 0
+* `((0(0|1)*0|1(0|1)*1)|0)|1`, merkeistä 0 ja 1 koostuvat merkkijonot, jotka alkavat ja päättyvät samalla merkillä
+
+Jokaista säännöllistä lauseketta testattiin pelkästään merkeistä 1 koostuvilla merkkijonoilla.
+
+Testitapauksissa katsottiin, kuinka paljon aikaa kuluu merkkijonon testaamiseen verrattuna merkkijonon pituuteen. Tulokset on esitetty kuvassa 2.
+
+![Mathching performance results](./imgs/matching_performance.png)
+
+**Kuva 2**: Merkkijonon tarkastamiseen kulunut aika merkkijonon merkkien määrän funktiona
