@@ -1,15 +1,45 @@
 # Testausdokumentti
 
 Ohjelman pystyy jakamaan seuraaviin peräkkäisiin toimintoihin:
-1. Parsiminen: parsitaan säännöllinen lauseke syntaksipuuksi
-2. Thompsonin algoritmi: muunnetaan syntaksipuu äärelliseksi epädeterministiseksi automaatiksi
-3. Rabin–Scottin konstruktio: muunnetaan äärellinen epädeterministinen automaatti äärelliseksi deterministiseksi automaatiksi
+1. Jäsentäminen: jäsennetään säännöllinen lauseke jäsennyspuuksi
+2. Thompsonin algoritmi: muunnetaan jäsennyspuu äärelliseksi epädeterministiseksi automaatiksi
+3. Rabin–Scottin algoritmi: muunnetaan äärellinen epädeterministinen automaatti äärelliseksi deterministiseksi automaatiksi
 4. Merkkijonon tarkastaminen: tarkastetaan äärellistä determinististä automaattia vasten, kuuluuko merkkijono säännöllisen lausekkeen muodostamaan kieleen.
 
-## Parsinnan testaaminen
-Parsinnan testaaminen on suoritettu yksikkötesteillä. Testitapaukset löytyvät testikansion tiedostosta [parser_test.py](../src/tests/parser_test.py). Jäsentimen testaamissa perusperiaatteena jäsentimelle annetaan syötteeksi säännöllinen lauseke merkkijonona, minkä jälkeen tarkastetaan, tuottiko jäsennin oikean jäsennyspuun. Yksikkötesteissä jokaiselle tiedostossa [props.py](../src/props.py) esitetylle säännölle, missä säännön vasen puoli on `empty`, `kleene`, `concatenation` ja `union`, on muodostettu oma yksikkötesti. Lisäksi on muodostettu yksi yksikkötesti säännöille, joissa vasen puoli on `single`, sillä kaikki nämä säännöt ovat käytännössä samanlaisia ainoana erona päätesymbolina käytetty merkki. Kaiki sallitut säännöllisen lausekkeen aakkoston merkit testataan kollektiivisesti kolmessa eri testitapauksessa.
+Jokaisen edellä mainitun toiminnon testaaminen on esitetty omassa kappaleeseen. Lisäksi on esitetty suorituskykytestaus, muut testaukset ja yksikkötestien kattavuusraportti. Testit voidaan toistaa seuraavasti:
 
-Koska jäsentimessä oikean lopputuloksen saaminen riippuu joissain tapauksissa siitä, onko säännöllisessä lausekkeessa shift-toimenpiteessä juuri pinoon pushatun merkin jälkeen oleva seuraava merkki asteriski, *, eivät edellä mainitut sääntöihin perustuvat yksikkötestit eivät kata kaikkia mahdollisia tapauksia. Tällaisia ovat tilanteet, joissa säännöllisessä lausekkeessa konkatenaation jälkimmäisenä operandina on kaksinkertainen Kleenen tähti tai yhdisteen Kleenen tähti. Jokaiselle tällaiselle tilanteelle on tehty oma testitapaus, eli tilanteille, joissa konkatenaation ensimmäisenä operandina on tyhjä merkkijono, yksittäinen merkki, konkatenaatio, yhdiste tai Kleenen tähti ja toisena operandina kaksinkertainen Kleenen tähti tai yhdisteen Kleenen tähti.
+Ohjelman yksikkötestien suoritus:
+
+    poetry run invoke unit-test
+
+Ohjelman integraatiotestien suoritus:
+
+    poetry run invoke integration-test
+
+Ohjelman suorituskykytestien suoritus:
+
+    poetry run invoke performance-test
+
+
+## Yksikkötestien kattavuusraportti
+Alla on yksikkötestien kattavuusraportti:
+
+    Name                            Stmts   Miss Branch BrPart  Cover   Missing
+    ---------------------------------------------------------------------------
+    src/algorithms/parser.py          145      5     60      4    96%   20, 53, 69, 93, 109
+    src/algorithms/rabin_scott.py      46      1     20      1    97%   51
+    src/algorithms/thompson.py         18      1     10      1    93%   43
+    src/entities/dfa.py                37      5     18      4    84%   28, 64, 67, 96, 101
+    src/entities/nfa.py               124     11     42     10    87%   44, 47, 83, 132, 174, 214, 246, 249, 294, 327, 330
+    src/entities/node.py               28      5     18      5    78%   34, 41, 48, 54, 61
+    src/props.py                        5      0      2      0   100%
+    ---------------------------------------------------------------------------
+    TOTAL                             403     28    170     25    91%
+
+## Jäsentämisen testaaminen
+Jäsentämisen testaaminen on suoritettu yksikkötesteillä. Testitapaukset löytyvät testikansion tiedostosta [parser_test.py](../src/tests/unit_tests/parser_test.py). Jäsentimen testaamissa perusperiaatteena jäsentimelle annetaan syötteeksi säännöllinen lauseke merkkijonona, minkä jälkeen tarkastetaan, tuottiko jäsennin oikean jäsennyspuun. Yksikkötesteissä jokaiselle tiedostossa [props.py](../src/props.py) esitetylle säännölle, missä säännön vasen puoli on `empty`, `kleene`, `concatenation` ja `union`, on muodostettu oma yksikkötesti. Lisäksi on muodostettu yksi yksikkötesti säännöille, joissa vasen puoli on `single`, sillä kaikki nämä säännöt ovat käytännössä samanlaisia ainoana erona päätesymbolina käytetty merkki. Kaikki sallitut säännöllisen lausekkeen aakkoston merkit testataan kollektiivisesti kolmessa eri testitapauksessa.
+
+Koska jäsentimessä oikean lopputuloksen saaminen riippuu joissain tapauksissa siitä, onko säännöllisessä lausekkeessa shift-toimenpiteessä juuri pinoon pushatun merkin jälkeen oleva seuraava merkki asteriski, *, eivät edellä mainitut sääntöihin perustuvat yksikkötestit kata kaikkia mahdollisia tapauksia. Tällaisia ovat tilanteet, joissa säännöllisessä lausekkeessa konkatenaation jälkimmäisenä operandina on kaksinkertainen Kleenen tähti tai yhdisteen Kleenen tähti. Jokaiselle tällaiselle tilanteelle on tehty oma testitapaus, eli tilanteille, joissa konkatenaation ensimmäisenä operandina on tyhjä merkkijono, yksittäinen merkki, konkatenaatio, yhdiste tai Kleenen tähti ja toisena operandina kaksinkertainen Kleenen tähti tai yhdisteen Kleenen tähti.
 
 Kaikki tilanteet, joissa yhdisteen jälkimmäinen operandi sisältää sulkuja, eivät myöskään sisälly edellä mainittujen yksikkötestien kattavuuteen. Näille tilanteille on tehty omat testitapaukset, ja näitä on esimerkiksi tilanteet, joissa yhdisteen jälkimmäinen operandi on yhdisteen Kleenen tähti tai kahden yhdisteen konkatenaatio.
 
@@ -17,7 +47,7 @@ Kaikki tilanteet, joissa yhdisteen jälkimmäinen operandi sisältää sulkuja, 
 Thompsonin algoritmin testaaminen on suoritettu yksikkötesteillä. Thompsonin algoritmi toimii rekursiivisesti perustuen jäsennyspuun solmun tyyppiin, joka voi olla tyhjä merkkijono, yksittäinen merkki, yhdiste, konkatenaatio tai Kleenen tähti. Yksikkötesteissä on oma testitapaus jokaiselle tyypille. Testitapauksissa muodostetaan tyyppiä vastaava jäsennyspuu, joka annetaan syötteenä Thompsonin algoritmille, ja testataan, muodostiko algoritmi jäsennyspuuta vastaavan NFA:n. NFA:sta tarkistetaan, NFA:n tilat, siirtymät sekä alkutila ja hyväksyvä tila.
 
 ## Rabin–Scottin algoritmin testaaminen
-Rabin–Scottin algoritmi testaaminen on suoritettu yksikkötesteillä. Testitapauksissa syötteenä annetaan NFA ja tarkistetaan, tuottiko algoritmi oikean DFA:n. Testitapaukset on tehty seuraaville NFA:ille:
+Rabin–Scottin algoritmin testaaminen on suoritettu yksikkötesteillä. Testitapauksissa syötteenä annetaan NFA ja tarkistetaan, tuottiko algoritmi oikean DFA:n. Testitapaukset on tehty seuraaville NFA:ille:
 * NFA, joka sisältää kaksi tilaa, ja näiden välillä epsilon-siirtymä
 * NFA, joka sisältää kaksi tilaa, ja näiden välillä tavallisen siirtymän
 * NFA, joka sisältää yhdestä tilasta kaksi siirtymää
@@ -49,11 +79,11 @@ Näissä testataan kaikki 0–4 merkin mittaiset merkkijonot.
 
 Yksikkötestejä on tehty luokille `Node`, `NFA` ja `DFA`.
 
-Luokan `Node` osalta on testattu solmun muodostaminen jokaisella eri tyypillä. Testitapaukissa muodostetaan solmu, ja katsotaan, onko lopputulos oikein.
+Luokan `Node` osalta on testattu solmun muodostaminen jokaisella eri tyypillä. Testitapauksissa muodostetaan solmu, ja katsotaan, onko lopputulos oikein.
 
 Luokkien `DFA` ja `NFA` osalta on testattu tilojen sekä siirtymien lisäämiset automaattiin. Kummaltakin luokalta tilojen osalta testataan yhden ja kahden tilan lisääminen sekä yhden, kahden ja kolmen siirtymän lisääminen. Lisäksi luokalta `NFA` on testattu tilojen indeksien korottaminen, sekä epsilon-sulkeumat ja siirtymät.
 
-Lisäksi on testattu luokan  `NFA` ulkopuoliset, mutta NFA:n muodostavat funktiot `empty()`, `single()`, `concatenation()`, `kleene` ja `union`. Näissä testataan, muodostavatko kyseiset funktiot oikeanlaiset NFA:t.
+Lisäksi on testattu luokan  `NFA` ulkopuoliset, mutta NFA:n muodostavat funktiot `empty()`, `single()`, `concatenation()`, `kleene()` ja `union()`. Näissä testataan, muodostavatko kyseiset funktiot oikeanlaiset NFA:t.
 
 Luokan `DFA` metodin `match` testaus on esitetty osiossa [merkkijonon tarkastamisen testaaminen](#merkkijonon-tarkastamisen-testaaminen).
 
