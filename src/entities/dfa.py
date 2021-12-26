@@ -91,7 +91,10 @@ class DFA:
             # Skip empty char
             if char == '.':
                 continue
-        
+
+            if not char in alphabet:
+                return False
+
             # If DFA is not constructed with Rabin-Scott algorithm, reject on character not
             # belonging to alphabet of the language
             if self.transitions[char][current_state-1] is None:
